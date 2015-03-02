@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenML", "OpenML\OpenML.csproj", "{3AE7DA84-82D2-4769-9411-2D306453793E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenML.Test", "OpenML.Test\OpenML.Test.csproj", "{28FB1382-5DA2-46A5-8142-84BD58C02785}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenML.Tests", "OpenML.Test\OpenML.Tests.csproj", "{28FB1382-5DA2-46A5-8142-84BD58C02785}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

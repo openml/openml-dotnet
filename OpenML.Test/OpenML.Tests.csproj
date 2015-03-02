@@ -6,8 +6,8 @@
     <ProjectGuid>{28FB1382-5DA2-46A5-8142-84BD58C02785}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OpenML.Test</RootNamespace>
-    <AssemblyName>OpenML.Test</AssemblyName>
+    <RootNamespace>OpenML.Tests</RootNamespace>
+    <AssemblyName>OpenML.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

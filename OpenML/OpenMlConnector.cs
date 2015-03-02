@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
+﻿using OpenML.Authentication;
 using RestSharp;
 
 namespace OpenML
@@ -8,15 +7,15 @@ namespace OpenML
     {
         private string _user = "";
         private string _password = "";
+        private string _urlEndpoint = "http://openml.org/api/";
 
         public OpenMlConnector()
         {
-            var client = new RestClient("http://openml.org/api/");
+            var client = new RestClient(_urlEndpoint);
             var request = new RestRequest("?f=openml.authenticate", Method.POST);
-            request.AddParameter("username", _user); // replaces matching token in request.Resource
-            request.AddParameter("password", CalculateMD5Hash(_password)); // replaces matching token in request.Resource
+            request.AddParameter("username", _user); 
+            request.AddParameter("password", Utilities.CalculateMd5Hash(_password));
             IRestResponse<AuthenticationResponse> response = client.Execute<AuthenticationResponse>(request);
-            var content = response.Content;
 
             var request2=new RestRequest("?f=openml.data", Method.POST);
             request2.AddParameter("session_hash", response.Data.Hash);
@@ -25,21 +24,7 @@ namespace OpenML
         }
 
 
-        public string CalculateMD5Hash(string input)
-        {
-            // step 1, calculate MD5 hash from input
-            MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = md5.ComputeHash(inputBytes);
-
-            // step 2, convert byte array to hex string
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
-            {
-                sb.Append(hash[i].ToString("X2"));
-            }
-            return sb.ToString();
-        }
+        
     }
 
 

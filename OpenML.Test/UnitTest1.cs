@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace OpenML.Test
+namespace OpenML.Tests
 {
     [TestClass]
     public class UnitTest1
