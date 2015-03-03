@@ -42,10 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationResponse.cs" />
+    <Compile Include="Response\Authenticate.cs" />
     <Compile Include="Authentication\Utilities.cs" />
     <Compile Include="OpenMlConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response\Data.cs" />
+    <Compile Include="Response\Dataset.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
