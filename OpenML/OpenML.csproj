@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dao\OpenMlDao.cs" />
+    <Compile Include="Dao\Parameters.cs" />
     <Compile Include="Response\Authenticate.cs" />
     <Compile Include="Authentication\Utilities.cs" />
     <Compile Include="OpenMlConnector.cs" />
