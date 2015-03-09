@@ -8,7 +8,7 @@ namespace OpenML.Tests
         [TestMethod]
         public void TestMethod1()
         {
-           OpenMlConnector connector=new OpenMlConnector();
+           OpenMlConnector connector=new OpenMlConnector("","");
         }
     }
 }

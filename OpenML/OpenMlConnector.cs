@@ -7,15 +7,15 @@ namespace OpenML
 {
     public class OpenMlConnector
     {
-        private string _user = "";
+        private string _username = "";
         private string _password = "";
         private OpenMlDao _dao;
 
-        public OpenMlConnector()
+        public OpenMlConnector(string username,string password)
         {
             _dao = new OpenMlDao();
 
-            var authenticate = Connect(_user, _password);
+            var authenticate = Connect(username, password);
             var data = ListData(authenticate.Hash);
             string a = "";
         }
