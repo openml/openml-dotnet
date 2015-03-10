@@ -13,6 +13,7 @@ namespace OpenML
         {
             _dao = new OpenMlDao();
             var authenticate = Connect(username, password);
+            var datasetDescription = GetDatasetDescription(authenticate.Hash, 1);
             var licences = ListLicences(authenticate.Hash);
             var data = ListData(authenticate.Hash);
             string a = "";
@@ -21,8 +22,8 @@ namespace OpenML
         public Authenticate Connect(string user, string password)
         {
             var parameters = new Parameters();
-            parameters.AddParameter("username", user);
-            parameters.AddParameter("password", Utilities.CalculateMd5Hash(password));
+            parameters.AddPostParameter("username", user);
+            parameters.AddPostParameter("password", Utilities.CalculateMd5Hash(password));
             return _dao.ExecuteRequest<Authenticate>("openml.authenticate", parameters);
         }  
         
@@ -34,6 +35,13 @@ namespace OpenML
         public List<Licence> ListLicences(string hash)
         {
             return _dao.ExecuteAuthenticatedRequest<List<Licence>>("openml.data.licences", hash);
+        }
+
+        public DatasetDescription GetDatasetDescription(string hash, int datasetId)
+        {
+            var parameters = new Parameters();
+            parameters.AddQueryStringParameter("data_id",datasetId);
+            return _dao.ExecuteAuthenticatedRequest<DatasetDescription>("openml.data.description", hash, parameters);
         }
     }
 }

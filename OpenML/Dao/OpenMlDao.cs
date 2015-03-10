@@ -5,7 +5,7 @@ namespace OpenML.Dao
 {
     public class OpenMlDao
     {        
-        private string _urlEndpoint = "http://openml.org/api/";
+        private string _urlEndpoint = "http://openml.org/rest_api/";
         private const string QueryPrefix = "?f=";
         private RestClient _client;
 
