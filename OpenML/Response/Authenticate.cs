@@ -2,6 +2,9 @@
 
 namespace OpenML.Response
 {
+    /// <summary>
+    /// Authenticate response of the OpenMl API
+    /// </summary>
     public class Authenticate
     {
 
