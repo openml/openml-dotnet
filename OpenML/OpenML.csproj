@@ -52,6 +52,7 @@
     <Compile Include="Response\Dataset.cs" />
     <Compile Include="Response\DatasetDescription.cs" />
     <Compile Include="Response\Licence.cs" />
+    <Compile Include="Response\TaskType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
