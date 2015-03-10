@@ -14,6 +14,7 @@ namespace OpenML
             _dao = new OpenMlDao();
             var authenticate = Connect(username, password);
             var taskTypes = ListTaskTypes(authenticate.Hash);
+            var taskType = GetTaskType(authenticate.Hash, 1);
             var datasetDescription = GetDatasetDescription(authenticate.Hash, 1);
             var licences = ListLicences(authenticate.Hash);
             var data = ListData(authenticate.Hash);
@@ -41,6 +42,13 @@ namespace OpenML
         public List<TaskType> ListTaskTypes(string hash)
         {
             return _dao.ExecuteAuthenticatedRequest<List<TaskType>>("openml.task.types", hash);
+        }
+        
+        public TaskType GetTaskType(string hash, int taskTypeId)
+        {
+            var parameters = new Parameters();
+            parameters.AddQueryStringParameter("task_type_id", taskTypeId);
+            return _dao.ExecuteAuthenticatedRequest<TaskType>("openml.task.types.search", hash, parameters);
         }
 
         public DatasetDescription GetDatasetDescription(string hash, int datasetId)
