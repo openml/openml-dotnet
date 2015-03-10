@@ -1,7 +1,7 @@
-﻿using RestSharp;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using RestSharp;
 
-namespace OpenML
+namespace OpenML.Dao
 {
     public class OpenMlDao
     {        
@@ -32,8 +32,8 @@ namespace OpenML
 
         public T ExecuteAuthenticatedRequest<T>(string url,string hash, List<Parameter> parameters = null) where T : new()
         {
-            var paramsWithHash = parameters != null ? parameters : new List<Parameter>();            
-            paramsWithHash.Add(new Parameter() { Name="session_hash",Value= hash });            
+            var paramsWithHash = parameters ?? new List<Parameter>();            
+            paramsWithHash.Add(new Parameter { Name="session_hash",Value= hash,Type = ParameterType.GetOrPost});            
             return ExecuteRequest<T>(url, paramsWithHash);
         }
     }
