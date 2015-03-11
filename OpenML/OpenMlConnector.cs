@@ -13,6 +13,7 @@ namespace OpenML
         {
             _dao = new OpenMlDao();
             var authenticate = Connect(username, password);
+            var dataQualities = ListDataQualities(authenticate.Hash);
             var taskTypes = ListTaskTypes(authenticate.Hash);
             var taskType = GetTaskType(authenticate.Hash, 1);
             var datasetDescription = GetDatasetDescription(authenticate.Hash, 1);
@@ -38,6 +39,11 @@ namespace OpenML
         {
             return _dao.ExecuteAuthenticatedRequest<List<Licence>>("openml.data.licences", hash);
         }
+
+        public List<Quality> ListDataQualities(string hash)
+        {
+            return _dao.ExecuteAuthenticatedRequest<List<Quality>>("openml.data.qualities.list", hash);
+        } 
 
         public List<TaskType> ListTaskTypes(string hash)
         {
