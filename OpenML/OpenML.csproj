@@ -67,7 +67,8 @@
     <Compile Include="OpenMlConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response\Data.cs" />
-    <Compile Include="Response\Quality.cs" />
+    <Compile Include="Response\DataQuality\DataQualitiesList.cs" />
+    <Compile Include="Response\DataQuality\Quality.cs" />
     <Compile Include="Response\Dataset.cs" />
     <Compile Include="Response\DatasetDescription.cs" />
     <Compile Include="Response\Licence.cs" />
@@ -75,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Deserialization\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

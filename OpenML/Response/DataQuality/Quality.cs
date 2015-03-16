@@ -1,6 +1,6 @@
 ﻿using RestSharp.Deserializers;
 
-namespace OpenML.Response
+namespace OpenML.Response.DataQuality
 {
     /// <summary>
     /// Data quality, aka. metafeature

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using OpenML.Authentication;
 using OpenML.Dao;
 using OpenML.Response;
+using OpenML.Response.DataQuality;
 
 namespace OpenML
 {
@@ -41,9 +42,9 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<List<Licence>>("openml.data.licences", hash);
         }
 
-        public List<DataQuality> ListDataQualities(string hash)
+        public List<String> ListDataQualities(string hash)
         {
-            return _dao.ExecuteAuthenticatedRequest<List<DataQuality>>("openml.data.qualities.list", hash);
+            return _dao.ExecuteAuthenticatedRequest<DataQualitiesList>("openml.data.qualities.list", hash).QualitiesNames;
         } 
 
         public List<TaskType> ListTaskTypes(string hash)
