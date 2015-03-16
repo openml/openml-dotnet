@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OpenML.Authentication;
 using OpenML.Dao;
 using OpenML.Response;
@@ -40,9 +41,9 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<List<Licence>>("openml.data.licences", hash);
         }
 
-        public List<Quality> ListDataQualities(string hash)
+        public List<DataQuality> ListDataQualities(string hash)
         {
-            return _dao.ExecuteAuthenticatedRequest<List<Quality>>("openml.data.qualities.list", hash);
+            return _dao.ExecuteAuthenticatedRequest<List<DataQuality>>("openml.data.qualities.list", hash);
         } 
 
         public List<TaskType> ListTaskTypes(string hash)
