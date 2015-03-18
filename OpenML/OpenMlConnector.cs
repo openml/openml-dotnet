@@ -52,12 +52,21 @@ namespace OpenML
         }
 
         /// <summary>
-        /// List all licences that are used in OpenMl
+        /// List all licences that are used in OpenMl datasets
         /// </summary>
         /// <returns>List of licences</returns>
-        public List<Licence> ListLicences()
+        public List<Licence> ListDataLicences()
         {
             return _dao.ExecuteAuthenticatedRequest<List<Licence>>("openml.data.licences", Hash);
+        }
+
+        /// <summary>
+        /// List all licences that are used in OpenMl implementations
+        /// </summary>
+        /// <returns>List of licences</returns>
+        public List<Licence> ListImplementationLicences()
+        {
+            return _dao.ExecuteAuthenticatedRequest<List<Licence>>("openml.implementation.licences", Hash);
         }
 
         /// <summary>
