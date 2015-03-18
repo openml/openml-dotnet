@@ -72,7 +72,9 @@
     <Compile Include="Response\Dataset.cs" />
     <Compile Include="Response\DatasetDescription.cs" />
     <Compile Include="Response\EstimationProcedure.cs" />
+    <Compile Include="Response\EvaluationMeasures.cs" />
     <Compile Include="Response\Licence.cs" />
+    <Compile Include="Response\Measure.cs" />
     <Compile Include="Response\TaskType.cs" />
   </ItemGroup>
   <ItemGroup>

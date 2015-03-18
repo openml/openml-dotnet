@@ -70,6 +70,15 @@ namespace OpenML
         }
 
         /// <summary>
+        /// List all evaluation measures used in OpenMl
+        /// </summary>
+        /// <returns>List of evaluation measures</returns>
+        public EvaluationMeasures ListEvaluationMeasures()
+        {
+            return _dao.ExecuteAuthenticatedRequest<EvaluationMeasures>("openml.evaluation.measures", Hash);
+        }
+
+        /// <summary>
         /// List all data qualities (metafeatures) names
         /// </summary>
         /// <returns>List of names</returns>
