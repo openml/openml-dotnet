@@ -71,6 +71,7 @@
     <Compile Include="Response\DataQuality\Quality.cs" />
     <Compile Include="Response\Dataset.cs" />
     <Compile Include="Response\DatasetDescription.cs" />
+    <Compile Include="Response\EstimationProcedure.cs" />
     <Compile Include="Response\Licence.cs" />
     <Compile Include="Response\TaskType.cs" />
   </ItemGroup>

@@ -91,6 +91,18 @@ namespace OpenML
         }
 
         /// <summary>
+        /// Get estimation procedure by id
+        /// </summary>
+        /// <param name="estimationprocedureId">Id of the estimation procedure</param>
+        /// <returns>Estimation procedure with specified Id</returns>
+        public EstimationProcedure GetEstimationProcedure(int estimationprocedureId)
+        {
+            var parameters = new Parameters();
+            parameters.AddQueryStringParameter("estimationprocedure_id", estimationprocedureId);
+            return _dao.ExecuteAuthenticatedRequest<EstimationProcedure>("openml.estimationprocedure.get", Hash, parameters);
+        }
+
+        /// <summary>
         /// Gets dataset description by id
         /// </summary>
         /// <param name="datasetId">Id of the dataset</param>
