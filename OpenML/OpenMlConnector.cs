@@ -131,5 +131,12 @@ namespace OpenML
             parameters.AddQueryStringParameter("data_id",datasetId);
             return _dao.ExecuteAuthenticatedRequest<DatasetDescription>("openml.data.description", Hash, parameters);
         }
+
+        public Run GetRun(int runId)
+        {
+            var parameters = new Parameters();
+            parameters.AddQueryStringParameter("run_id", runId);
+            return _dao.ExecuteAuthenticatedRequest<Run>("openml.run.get", Hash, parameters);
+        }
     }
 }

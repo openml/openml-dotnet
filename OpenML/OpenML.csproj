@@ -75,6 +75,7 @@
     <Compile Include="Response\EvaluationMeasures.cs" />
     <Compile Include="Response\Licence.cs" />
     <Compile Include="Response\Measure.cs" />
+    <Compile Include="Response\Run.cs" />
     <Compile Include="Response\TaskType.cs" />
   </ItemGroup>
   <ItemGroup>
