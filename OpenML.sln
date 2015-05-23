@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22609.0
+VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenML", "OpenML\OpenML.csproj", "{3AE7DA84-82D2-4769-9411-2D306453793E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenML.Tests", "OpenML.Tests\OpenML.Tests.csproj", "{28FB1382-5DA2-46A5-8142-84BD58C02785}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenML.SampleApp", "OpenML.SampleApp\OpenML.SampleApp.csproj", "{2625C756-58AE-4976-9B38-8074625816DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0006CC8-35FB-4A09-B8BD-66AE5E73D4DF}"
+	ProjectSection(SolutionItems) = preProject
+		openMl.0.4.0.0.nupkg = openMl.0.4.0.0.nupkg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
