@@ -15,7 +15,7 @@ namespace OpenML
         private readonly OpenMlDao _dao;
         private readonly Authenticate _authenticate;
 
-        private string Hash => _authenticate.Hash;
+        private string Hash { get; set; }
 
         /// <summary>
         /// Creates OpenMlConnector instance and automatically connect
@@ -26,6 +26,7 @@ namespace OpenML
         {
             _dao = new OpenMlDao();
             _authenticate = Connect(username, password);
+            Hash = _authenticate.Hash;
         }
 
         /// <summary>
@@ -132,11 +133,27 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<DatasetDescription>("openml.data.description", Hash, parameters);
         }
 
+        /// <summary>
+        /// Get details of the selected run
+        /// </summary>
+        /// <param name="runId">Id of the run in question</param>
+        /// <returns>Run details</returns>
         public Run GetRun(int runId)
         {
             var parameters = new Parameters();
             parameters.AddQueryStringParameter("run_id", runId);
             return _dao.ExecuteAuthenticatedRequest<Run>("openml.run.get", Hash, parameters);
+        }
+
+        /// <summary>
+        /// Executes free query on the openMl database
+        /// </summary>
+        /// <param name="freeQuery">Sql query to execute</param>
+        /// <returns>Result json encoded as string</returns>
+        public string ExecuteFreeQuery(string freeQuery)
+        {
+            var result= _dao.ExecuteAuthenticatedFreeQuery(freeQuery, Hash);
+            return result;
         }
     }
 }
