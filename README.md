@@ -1,5 +1,4 @@
-# dotnet
-.NET API
+# .NET API connector for the OpenMl platform
 
 Connector to the openML api for the .Net platform.
 Currently the entries in the OpenMl database can be obtained, the upload of own results is planned.
@@ -9,15 +8,15 @@ Easily installable via Nuget:
 PM> Install-Package openMl
 
 Usage is as follows:
-var connector = new OpenMlConnector("username", "password");
-var data = connector.ListDatasets();
-var dataSetDetail = connector.GetDatasetDescription(1);
-var run = connector.GetRun(1);
-var licences = connector.ListDataLicences();
-var measures = connector.ListEvaluationMeasures();
-var estimationProcs = connector.GetEstimationProcedure(1);
-var licences2 = connector.ListImplementationLicences();
-var dataQualities = connector.ListDataQualities();
-var taskTypes = connector.ListTaskTypes();
-var taskType = connector.GetTaskType(1);
-var datasetDescription = connector.GetDatasetDescription(1);
+var connector = new OpenMlConnector("username", "password");</br>
+var data = connector.ListDatasets();</br>
+var dataSetDetail = connector.GetDatasetDescription(1);</br>
+var run = connector.GetRun(1);</br>
+var licences = connector.ListDataLicences();</br>
+var measures = connector.ListEvaluationMeasures();</br>
+var estimationProcs = connector.GetEstimationProcedure(1);</br>
+var licences2 = connector.ListImplementationLicences();</br>
+var dataQualities = connector.ListDataQualities();</br>
+var taskTypes = connector.ListTaskTypes();</br>
+var taskType = connector.GetTaskType(1);</br>
+var datasetDescription = connector.GetDatasetDescription(1);</br>
