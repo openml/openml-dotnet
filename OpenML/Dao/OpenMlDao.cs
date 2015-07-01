@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using OpenML.Response.FreeQuery;
 using RestSharp;
 
@@ -45,7 +46,8 @@ namespace OpenML.Dao
             var freeQueryClient = new RestClient(_freeApiEndpoint);
             var request = new RestRequest("?q="+freeQuery, Method.POST);
             var response = freeQueryClient.Execute(request);
-            return new FreeQueryResult(response.Content);
+            var result = JsonConvert.DeserializeObject<FreeQueryResult>(response.Content);
+            return result;
         }
     }
 }
