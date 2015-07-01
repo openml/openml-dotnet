@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using OpenML.Response.FreeQuery;
 using RestSharp;
 
 
@@ -7,6 +8,7 @@ namespace OpenML.Dao
     public class OpenMlDao
     {        
         private string _urlEndpoint = "http://openml.org/rest_api/";
+        private string _freeApiEndpoint = "http://openml.org/api_query/";
         private const string QueryPrefix = "?f=";
         private RestClient _client;
 
@@ -38,20 +40,12 @@ namespace OpenML.Dao
             return ExecuteRequest<T>(url, paramsWithHash);
         }
 
-        public string ExecuteAuthenticatedFreeQuery(string freeQuery, string hash, List<Parameter> parameters = null)
+        public FreeQueryResult ExecuteFreeQuery(string freeQuery)
         {
-            var paramsWithHash = parameters ?? new List<Parameter>();
-            paramsWithHash.Add(new Parameter { Name = "session_hash", Value = hash, Type = ParameterType.GetOrPost });
-            return ExecuteFreeQuery(freeQuery, paramsWithHash);
-        }
-
-        public string ExecuteFreeQuery(string freeQuery, List<Parameter> parameters = null)
-        {
-            //parameters = parameters ?? new List<Parameter>();
-            var freeQueryClient = new RestClient("http://openml.org/api_query/");
+            var freeQueryClient = new RestClient(_freeApiEndpoint);
             var request = new RestRequest("?q="+freeQuery, Method.POST);
             var response = freeQueryClient.Execute(request);
-            return response.Content;
+            return new FreeQueryResult(response.Content);
         }
     }
 }

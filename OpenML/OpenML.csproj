@@ -74,6 +74,7 @@
     <Compile Include="Response\EstimationProcedure.cs" />
     <Compile Include="Response\Evaluation.cs" />
     <Compile Include="Response\EvaluationMeasures.cs" />
+    <Compile Include="Response\FreeQuery\FreeQueryResult.cs" />
     <Compile Include="Response\Licence.cs" />
     <Compile Include="Response\Measure.cs" />
     <Compile Include="Response\OutputData.cs" />

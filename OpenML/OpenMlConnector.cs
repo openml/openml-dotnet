@@ -4,6 +4,7 @@ using OpenML.Authentication;
 using OpenML.Dao;
 using OpenML.Response;
 using OpenML.Response.DataQuality;
+using OpenML.Response.FreeQuery;
 
 namespace OpenML
 {
@@ -149,10 +150,10 @@ namespace OpenML
         /// Executes free query on the openMl database
         /// </summary>
         /// <param name="freeQuery">Sql query to execute</param>
-        /// <returns>Result json encoded as string</returns>
-        public string ExecuteFreeQuery(string freeQuery)
+        /// <returns>Query result with data, columns and status</returns>
+        public FreeQueryResult ExecuteFreeQuery(string freeQuery)
         {
-            var result= _dao.ExecuteAuthenticatedFreeQuery(freeQuery, Hash);
+            var result= _dao.ExecuteFreeQuery(freeQuery);
             return result;
         }
     }
