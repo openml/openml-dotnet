@@ -37,7 +37,7 @@ namespace OpenML.Response.FreeQuery
         /// </summary>
         public string Title { get; set; }
         /// <summary>
-        /// Data type of the query
+        /// Data type of the column
         /// </summary>
         public string Datatype { get; set; }
     }
