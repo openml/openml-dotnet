@@ -78,12 +78,16 @@
     <Compile Include="Response\EstimationProcedure.cs" />
     <Compile Include="Response\Evaluation.cs" />
     <Compile Include="Response\EvaluationMeasures.cs" />
+    <Compile Include="Response\FreeQuery\Column.cs" />
     <Compile Include="Response\FreeQuery\FreeQueryResult.cs" />
+    <Compile Include="Response\OpenMlRun\Dataset.cs" />
+    <Compile Include="Response\OpenMlRun\File.cs" />
+    <Compile Include="Response\OpenMlRun\InputData.cs" />
     <Compile Include="Response\Licence.cs" />
     <Compile Include="Response\Measure.cs" />
-    <Compile Include="Response\OutputData.cs" />
+    <Compile Include="Response\OpenMlRun\OutputData.cs" />
     <Compile Include="Response\ParameterSetting.cs" />
-    <Compile Include="Response\Run.cs" />
+    <Compile Include="Response\OpenMlRun\Run.cs" />
     <Compile Include="Response\Tag.cs" />
     <Compile Include="Response\TaskType.cs" />
   </ItemGroup>

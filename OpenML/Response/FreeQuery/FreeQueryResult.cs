@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace OpenML.Response.FreeQuery
+﻿namespace OpenML.Response.FreeQuery
 {
     /// <summary>
     /// Result of free query to the openMl database
@@ -29,17 +27,4 @@ namespace OpenML.Response.FreeQuery
         /// </summary>
         public string[][] Data { get; set; }
     }
-
-    public class Column
-    {
-        /// <summary>
-        /// Column name
-        /// </summary>
-        public string Title { get; set; }
-        /// <summary>
-        /// Data type of the column
-        /// </summary>
-        public string Datatype { get; set; }
-    }
-
 }

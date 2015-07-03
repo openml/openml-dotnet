@@ -5,6 +5,7 @@ using OpenML.Dao;
 using OpenML.Response;
 using OpenML.Response.DataQuality;
 using OpenML.Response.FreeQuery;
+using OpenML.Response.OpenMlRun;
 
 namespace OpenML
 {
@@ -48,7 +49,7 @@ namespace OpenML
         /// List all datasets in the OpenMl repository
         /// </summary>
         /// <returns>List of datasets</returns>
-        public List<Dataset> ListDatasets()
+        public List<Response.Dataset> ListDatasets()
         {
             return _dao.ExecuteAuthenticatedRequest<Data>("openml.data", Hash).Datasets;
         }
