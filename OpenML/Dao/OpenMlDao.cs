@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using Newtonsoft.Json;
 using OpenML.Response.FreeQuery;
 using RestSharp;
@@ -23,7 +24,7 @@ namespace OpenML.Dao
             _client = new RestClient(endpointUrl);
         }
 
-        public T ExecuteRequest<T>(string url,List<Parameter> parameters=null) where T : new()
+        public T ExecuteRequest<T>(string url,List<Parameter> parameters=null) where T : class, new()
         {
             var request = new RestRequest(QueryPrefix+url, Method.POST);
             if (parameters!=null)
@@ -31,10 +32,15 @@ namespace OpenML.Dao
                 request.Parameters.AddRange(parameters);
             }
             IRestResponse<T> response = _client.Execute<T>(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                //TODO: log error
+                return null;
+            }
             return response.Data;
         }
 
-        public T ExecuteAuthenticatedRequest<T>(string url,string hash, List<Parameter> parameters = null) where T : new()
+        public T ExecuteAuthenticatedRequest<T>(string url,string hash, List<Parameter> parameters = null) where T : class, new()
         {
             var paramsWithHash = parameters ?? new List<Parameter>();            
             paramsWithHash.Add(new Parameter { Name="session_hash",Value= hash,Type = ParameterType.GetOrPost});            
@@ -46,6 +52,11 @@ namespace OpenML.Dao
             var freeQueryClient = new RestClient(_freeApiEndpoint);
             var request = new RestRequest("?q="+freeQuery, Method.POST);
             var response = freeQueryClient.Execute(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                //TODO: log error
+                return null;
+            }
             var result = JsonConvert.DeserializeObject<FreeQueryResult>(response.Content);
             return result;
         }
