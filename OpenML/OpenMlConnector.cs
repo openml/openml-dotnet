@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Collections.Generic;
 using OpenML.Authentication;
 using OpenML.Dao;
@@ -156,6 +158,35 @@ namespace OpenML
         {
             var result= _dao.ExecuteFreeQuery(freeQuery);
             return result;
+        }
+
+        public void UploadFile()
+        {
+            string filePath = "dataset_61_iris.arff";
+            var parameters = new Parameters();
+            var content = System.IO.File.ReadAllText(filePath);
+            string description = @"
+<oml:data_set_description xmlns:oml=""http://openml.org/openml"">
+    <oml:name>irisTestUpload</oml:name>
+  <oml:version>1</oml:version>
+  <oml:description>Test of .Net upload</oml:description>
+  <oml:format>ARFF</oml:format>
+  <oml:creator>R.A. Fisher</oml:creator>		
+<oml:collection_date>1936</oml:collection_date>	
+<oml:upload_date>2014-04-06 23:23:39</oml:upload_date>
+    <oml:licence>Public</oml:licence>  
+  <oml:default_target_attribute>class</oml:default_target_attribute>   
+<oml:version_label>1</oml:version_label>   
+<oml:tag>uci</oml:tag>
+<oml:visibility>public</oml:visibility> 
+<oml:original_data_url>https://archive.ics.uci.edu/ml/datasets/Iris</oml:original_data_url> 
+<oml:paper_url>http://digital.library.adelaide.edu.au/dspace/handle/2440/15227</oml:paper_url>
+<oml:status>active</oml:status>
+  <oml:md5_checksum>3a212cce13fc6f9b94f4793285813d95</oml:md5_checksum>
+</oml:data_set_description>";
+            parameters.AddPostParameter("description",description);
+            parameters.AddContentParameter("dataset",content );
+            _dao.ExecuteAuthenticatedRequest<Run>("openml.data.upload", Hash, parameters);
         }
     }
 }
