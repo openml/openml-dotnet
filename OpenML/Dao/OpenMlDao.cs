@@ -10,7 +10,7 @@ namespace OpenML.Dao
     public class OpenMlDao
     {        
         private string _urlEndpoint = "http://www.openml.org/api_new/v1/";
-        private string _freeApiEndpoint = "http://www.openml.org/api_new/";
+        private string _freeApiEndpoint = "http://www.openml.org/api_query/";
         private RestClient _client;
 
         public OpenMlDao()
