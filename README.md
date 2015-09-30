@@ -8,7 +8,7 @@ Easily installable via Nuget:
 PM> Install-Package openMl
 
 Usage is as follows:
-var connector = new OpenMlConnector("username", "password");</br>
+var connector = new OpenMlConnector("yourapikey");</br>
 var data = connector.ListDatasets();</br>
 var dataSetDetail = connector.GetDatasetDescription(1);</br>
 var run = connector.GetRun(1);</br>
@@ -20,3 +20,4 @@ var dataQualities = connector.ListDataQualities();</br>
 var taskTypes = connector.ListTaskTypes();</br>
 var taskType = connector.GetTaskType(1);</br>
 var datasetDescription = connector.GetDatasetDescription(1);</br>
+var result = connector.ExecuteFreeQuery("SELECT name,did FROM dataset");
