@@ -9,9 +9,8 @@ namespace OpenML.Dao
 {
     public class OpenMlDao
     {        
-        private string _urlEndpoint = "http://openml.org/rest_api/";
-        private string _freeApiEndpoint = "http://openml.org/api_query/";
-        private const string QueryPrefix = "?f=";
+        private string _urlEndpoint = "http://www.openml.org/api_new/v1/";
+        private string _freeApiEndpoint = "http://www.openml.org/api_new/";
         private RestClient _client;
 
         public OpenMlDao()
@@ -26,7 +25,7 @@ namespace OpenML.Dao
 
         public T ExecuteRequest<T>(string url,List<Parameter> parameters=null) where T : class, new()
         {
-            var request = new RestRequest(QueryPrefix+url, Method.POST);
+            var request = new RestRequest(url, Method.GET);
             if (parameters!=null)
             {
                 request.Parameters.AddRange(parameters);
@@ -40,11 +39,11 @@ namespace OpenML.Dao
             return response.Data;
         }
 
-        public T ExecuteAuthenticatedRequest<T>(string url,string hash, List<Parameter> parameters = null) where T : class, new()
+        public T ExecuteAuthenticatedRequest<T>(string url,string apiKey, List<Parameter> parameters = null) where T : class, new()
         {
-            var paramsWithHash = parameters ?? new List<Parameter>();            
-            paramsWithHash.Add(new Parameter { Name="session_hash",Value= hash,Type = ParameterType.GetOrPost});            
-            return ExecuteRequest<T>(url, paramsWithHash);
+            var paramsWithApiKey = parameters ?? new List<Parameter>();            
+            paramsWithApiKey.Add(new Parameter { Name="api_key",Value= apiKey, Type = ParameterType.QueryString});            
+            return ExecuteRequest<T>(url, paramsWithApiKey);
         }
 
         public FreeQueryResult ExecuteFreeQuery(string freeQuery)

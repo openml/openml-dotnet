@@ -52,8 +52,9 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -83,16 +84,18 @@
     <Compile Include="Response\OpenMlRun\Dataset.cs" />
     <Compile Include="Response\OpenMlRun\File.cs" />
     <Compile Include="Response\OpenMlRun\InputData.cs" />
-    <Compile Include="Response\Licence.cs" />
     <Compile Include="Response\Measure.cs" />
     <Compile Include="Response\OpenMlRun\OutputData.cs" />
     <Compile Include="Response\ParameterSetting.cs" />
     <Compile Include="Response\OpenMlRun\Run.cs" />
     <Compile Include="Response\Tag.cs" />
+    <Compile Include="Response\Task.cs" />
     <Compile Include="Response\TaskType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Deserialization\" />

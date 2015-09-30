@@ -19,33 +19,17 @@ namespace OpenML
         private readonly OpenMlDao _dao;
         private readonly Authenticate _authenticate;
 
-        private string Hash { get; set; }
+        private string ApiKey { get; }
 
         /// <summary>
         /// Creates OpenMlConnector instance and automatically connect
         /// </summary>
-        /// <param name="username">OpenMl username</param>
-        /// <param name="password">OpenMl password</param>
-        public OpenMlConnector(string username, string password)
+        /// <param name="apiKey">OpenMl apiKey</param>
+        public OpenMlConnector(string apiKey)
         {
             _dao = new OpenMlDao();
-            _authenticate = Connect(username, password);
-            Hash = _authenticate.Hash;
+            ApiKey = apiKey;
         }
-
-        /// <summary>
-        /// Connects to OpenMl API using provided credentials
-        /// </summary>
-        /// <param name="user">OpenML username</param>
-        /// <param name="password">OpenML password</param>
-        /// <returns>Authenticate response</returns>
-        public Authenticate Connect(string user, string password)
-        {
-            var parameters = new Parameters();
-            parameters.AddPostParameter("username", user);
-            parameters.AddPostParameter("password", Utilities.CalculateMd5Hash(password));
-            return _dao.ExecuteRequest<Authenticate>("openml.authenticate", parameters);
-        }  
         
         /// <summary>
         /// List all datasets in the OpenMl repository
@@ -53,25 +37,7 @@ namespace OpenML
         /// <returns>List of datasets</returns>
         public List<Response.Dataset> ListDatasets()
         {
-            return _dao.ExecuteAuthenticatedRequest<Data>("openml.data", Hash).Datasets;
-        }
-
-        /// <summary>
-        /// List all licences that are used in OpenMl datasets
-        /// </summary>
-        /// <returns>List of licences</returns>
-        public List<Licence> ListDataLicences()
-        {
-            return _dao.ExecuteAuthenticatedRequest<List<Licence>>("openml.data.licences", Hash);
-        }
-
-        /// <summary>
-        /// List all licences that are used in OpenMl implementations
-        /// </summary>
-        /// <returns>List of licences</returns>
-        public List<Licence> ListImplementationLicences()
-        {
-            return _dao.ExecuteAuthenticatedRequest<List<Licence>>("openml.implementation.licences", Hash);
+            return _dao.ExecuteAuthenticatedRequest<Data>("data/list/", ApiKey).Datasets;
         }
 
         /// <summary>
@@ -80,7 +46,7 @@ namespace OpenML
         /// <returns>List of evaluation measures</returns>
         public EvaluationMeasures ListEvaluationMeasures()
         {
-            return _dao.ExecuteAuthenticatedRequest<EvaluationMeasures>("openml.evaluation.measures", Hash);
+            return _dao.ExecuteAuthenticatedRequest<EvaluationMeasures>("evaluationmeasure/list", ApiKey);
         }
 
         /// <summary>
@@ -89,7 +55,7 @@ namespace OpenML
         /// <returns>List of names</returns>
         public List<String> ListDataQualities()
         {
-            return _dao.ExecuteAuthenticatedRequest<DataQualitiesList>("openml.data.qualities.list", Hash).QualitiesNames;
+            return _dao.ExecuteAuthenticatedRequest<DataQualitiesList>("data/qualities/list", ApiKey).QualitiesNames;
         } 
 
         /// <summary>
@@ -98,9 +64,14 @@ namespace OpenML
         /// <returns>List of task types</returns>
         public List<TaskType> ListTaskTypes()
         {
-            return _dao.ExecuteAuthenticatedRequest<List<TaskType>>("openml.task.types", Hash);
+            return _dao.ExecuteAuthenticatedRequest<List<TaskType>>("tasktype/list", ApiKey);
         }
-        
+
+        public List<Task> ListTasks()
+        {
+            return _dao.ExecuteAuthenticatedRequest<List<Task>>("task/list", ApiKey);
+        }
+
         /// <summary>
         /// Get task type by id
         /// </summary>
@@ -109,9 +80,16 @@ namespace OpenML
         public TaskType GetTaskType(int taskTypeId)
         {
             var parameters = new Parameters();
-            parameters.AddQueryStringParameter("task_type_id", taskTypeId);
-            return _dao.ExecuteAuthenticatedRequest<TaskType>("openml.task.types.search", Hash, parameters);
+            parameters.AddUrlSegment("task_id", taskTypeId);
+            return _dao.ExecuteAuthenticatedRequest<TaskType>("tasktype/{task_id}", ApiKey, parameters);
         }
+
+        //public Task GetTask(int taskId)
+        //{
+        //    var parameters = new Parameters();
+        //    parameters.AddUrlSegment("task_id", taskId);
+        //    return _dao.ExecuteAuthenticatedRequest<Task>("task/{task_id}", ApiKey, parameters);
+        //}
 
         /// <summary>
         /// Get estimation procedure by id
@@ -121,9 +99,14 @@ namespace OpenML
         public EstimationProcedure GetEstimationProcedure(int estimationprocedureId)
         {
             var parameters = new Parameters();
-            parameters.AddQueryStringParameter("estimationprocedure_id", estimationprocedureId);
-            return _dao.ExecuteAuthenticatedRequest<EstimationProcedure>("openml.estimationprocedure.get", Hash, parameters);
+            parameters.AddUrlSegment("proc_id", estimationprocedureId);
+            return _dao.ExecuteAuthenticatedRequest<EstimationProcedure>("estimationprocedure/{proc_id}", ApiKey, parameters);
         }
+
+        public List<EstimationProcedure> ListEstimationProcedures()
+        {
+            return _dao.ExecuteAuthenticatedRequest<List<EstimationProcedure>>("estimationprocedure/list", ApiKey);
+        } 
 
         /// <summary>
         /// Gets dataset description by id
@@ -133,8 +116,8 @@ namespace OpenML
         public DatasetDescription GetDatasetDescription(int datasetId)
         {
             var parameters = new Parameters();
-            parameters.AddQueryStringParameter("data_id",datasetId);
-            return _dao.ExecuteAuthenticatedRequest<DatasetDescription>("openml.data.description", Hash, parameters);
+            parameters.AddUrlSegment("data_id",datasetId);
+            return _dao.ExecuteAuthenticatedRequest<DatasetDescription>("data/{data_id}", ApiKey, parameters);
         }
 
         /// <summary>
@@ -145,8 +128,8 @@ namespace OpenML
         public Run GetRun(int runId)
         {
             var parameters = new Parameters();
-            parameters.AddQueryStringParameter("run_id", runId);
-            return _dao.ExecuteAuthenticatedRequest<Run>("openml.run.get", Hash, parameters);
+            parameters.AddUrlSegment("run_id", runId);
+            return _dao.ExecuteAuthenticatedRequest<Run>("run/{run_id}", ApiKey, parameters);
         }
 
         /// <summary>
@@ -186,7 +169,7 @@ namespace OpenML
 </oml:data_set_description>";
             parameters.AddPostParameter("description",description);
             parameters.AddContentParameter("dataset",content );
-            _dao.ExecuteAuthenticatedRequest<Run>("openml.data.upload", Hash, parameters);
+            _dao.ExecuteAuthenticatedRequest<Run>("openml.data.upload", ApiKey, parameters);
         }
     }
 }
