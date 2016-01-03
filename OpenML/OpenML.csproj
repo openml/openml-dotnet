@@ -70,6 +70,7 @@
     <Compile Include="Authentication\Utilities.cs" />
     <Compile Include="OpenMlConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response\Datasets\Quality.cs" />
     <Compile Include="Response\Tasks\Contributor.cs" />
     <Compile Include="Response\Data.cs" />
     <Compile Include="Response\DataQuality\DataQualitiesList.cs" />

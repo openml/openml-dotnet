@@ -9,6 +9,7 @@ using OpenML.Response.DataQuality;
 using OpenML.Response.FreeQuery;
 using OpenML.Response.OpenMlRun;
 using OpenML.Response.Tasks;
+using Quality = OpenML.Response.Datasets.Quality;
 
 namespace OpenML
 {
@@ -19,7 +20,7 @@ namespace OpenML
     {
         private readonly OpenMlDao _dao;
 
-        private string ApiKey { get; }
+        private string ApiKey { get; set; }
 
         /// <summary>
         /// Creates OpenMlConnector instance and automatically connect
@@ -118,6 +119,13 @@ namespace OpenML
             var parameters = new Parameters();
             parameters.AddUrlSegment("data_id",datasetId);
             return _dao.ExecuteAuthenticatedRequest<DatasetDescription>("data/{data_id}", ApiKey, parameters);
+        }
+
+        public List<Quality> GetDatasetQualities(int datasetId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("data_id", datasetId);
+            return _dao.ExecuteAuthenticatedRequest<List<Quality>>("/data/qualities/{data_id}", ApiKey, parameters);
         }
 
         /// <summary>
