@@ -67,10 +67,10 @@
   <ItemGroup>
     <Compile Include="Dao\OpenMlDao.cs" />
     <Compile Include="Dao\Parameters.cs" />
-    <Compile Include="Response\Authenticate.cs" />
     <Compile Include="Authentication\Utilities.cs" />
     <Compile Include="OpenMlConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response\Tasks\Contributor.cs" />
     <Compile Include="Response\Data.cs" />
     <Compile Include="Response\DataQuality\DataQualitiesList.cs" />
     <Compile Include="Response\DataQuality\Quality.cs" />
@@ -90,7 +90,15 @@
     <Compile Include="Response\OpenMlRun\Run.cs" />
     <Compile Include="Response\Tag.cs" />
     <Compile Include="Response\Task.cs" />
-    <Compile Include="Response\TaskType.cs" />
+    <Compile Include="Response\Tasks\Input.cs" />
+    <Compile Include="Response\Tasks\Templates\Dataset.cs" />
+    <Compile Include="Response\Tasks\Templates\EstimationProcedure.cs" />
+    <Compile Include="Response\Tasks\TaskType.cs" />
+    <Compile Include="Response\Tasks\Templates\EvaluationMeasures.cs" />
+    <Compile Include="Response\Tasks\Templates\Measure.cs" />
+    <Compile Include="Response\Tasks\Templates\Feature.cs" />
+    <Compile Include="Response\Tasks\Templates\Parameter.cs" />
+    <Compile Include="Response\Tasks\Templates\Predictions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

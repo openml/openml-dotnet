@@ -25,7 +25,10 @@ namespace OpenML.Dao
 
         public T ExecuteRequest<T>(string url,List<Parameter> parameters=null) where T : class, new()
         {
-            var request = new RestRequest(url, Method.GET);
+            var request = new RestRequest(url, Method.GET)
+            {
+                DateFormat = "dd-MM-yyyy"
+            };
             if (parameters!=null)
             {
                 request.Parameters.AddRange(parameters);

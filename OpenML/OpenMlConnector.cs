@@ -8,6 +8,7 @@ using OpenML.Response;
 using OpenML.Response.DataQuality;
 using OpenML.Response.FreeQuery;
 using OpenML.Response.OpenMlRun;
+using OpenML.Response.Tasks;
 
 namespace OpenML
 {
@@ -17,7 +18,6 @@ namespace OpenML
     public class OpenMlConnector
     {
         private readonly OpenMlDao _dao;
-        private readonly Authenticate _authenticate;
 
         private string ApiKey { get; }
 
