@@ -9,11 +9,7 @@ namespace OpenML.SampleApp
     {
         static void Main(string[] args)
         {
-            var connector = new OpenMlConnector("3c287fc383aae0144a1787a29f0fd890");
-            var dataSetDetail = connector.GetDatasetDescription(1);
-            dataSetDetail.DownloadDataset("test.arff");
-            var dataQualities = connector.ListDataQualities();
-            var data = connector.ListDatasets();
+            var connector = new OpenMlConnector("");
             var taskType = connector.GetTaskType(2);
             var taskTypes = connector.ListTaskTypes();
             var estimationProc = connector.GetEstimationProcedure(1);
@@ -23,7 +19,10 @@ namespace OpenML.SampleApp
             //connector.UploadFile();
             var tasks = connector.ListTasks();
             //var task = connector.GetTask(2);
+            var dataSetDetail = connector.GetDatasetDescription(1);
             var uknownDataset = connector.GetDatasetDescription(int.MaxValue);
+            var data = connector.ListDatasets();
+            var dataQualities = connector.ListDataQualities();
             var datasetDescription = connector.GetDatasetDescription(1);
             var result=connector.ExecuteFreeQuery("SELECT name,did FROM dataset");
             string a = "";
