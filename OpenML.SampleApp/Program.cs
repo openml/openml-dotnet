@@ -10,6 +10,8 @@ namespace OpenML.SampleApp
         static void Main(string[] args)
         {
             var connector = new OpenMlConnector("");
+            var dataSetDetail = connector.GetDatasetDescription(1);
+            dataSetDetail.DownloadDataset("test.arff");
             var taskType = connector.GetTaskType(2);
             var taskTypes = connector.ListTaskTypes();
             var estimationProc = connector.GetEstimationProcedure(1);
@@ -19,7 +21,6 @@ namespace OpenML.SampleApp
             //connector.UploadFile();
             var tasks = connector.ListTasks();
             //var task = connector.GetTask(2);
-            var dataSetDetail = connector.GetDatasetDescription(1);
             var uknownDataset = connector.GetDatasetDescription(int.MaxValue);
             var data = connector.ListDatasets();
             var dataQualities = connector.ListDataQualities();
