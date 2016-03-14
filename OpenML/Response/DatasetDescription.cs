@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Security.Cryptography;
 
 namespace OpenML.Response
 {
@@ -123,5 +127,26 @@ namespace OpenML.Response
         /// When the dataset is updated, add an explanation here.
         /// </summary>
         public string UpdateComment { get; set; }
+
+        public void DownloadDataset(string destination)
+        {
+            using (var webClient = new WebClient())
+            {
+                webClient.DownloadFile(Url, destination);
+            }
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(destination))
+                {
+                    var actualHash = BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
+                    if (actualHash != Md5CheckSum)
+                    {
+                        File.Delete(destination);
+                        throw new Exception("Md5 hash did not match. Source Corrupted?");
+                    }
+                }
+            }
+
+        }
     }
 }
