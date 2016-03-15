@@ -14,11 +14,4 @@ namespace OpenML.Response
 
         public List<Quality> Qualities { get; set; }
     }
-
-    public class Quality
-    {
-        public string Name { get; set; }
-
-        public double Value { get; set; }
-    }
 }

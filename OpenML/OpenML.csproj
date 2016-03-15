@@ -82,6 +82,7 @@
     <Compile Include="Response\Flows\Flow.cs" />
     <Compile Include="Response\Flows\FlowExist.cs" />
     <Compile Include="Response\Flows\Parameter.cs" />
+    <Compile Include="Response\Quality.cs" />
     <Compile Include="Response\Tasks\Contributor.cs" />
     <Compile Include="Response\Data.cs" />
     <Compile Include="Response\DataQuality\DataQualitiesList.cs" />
@@ -103,6 +104,9 @@
     <Compile Include="Response\Tag.cs" />
     <Compile Include="Response\Task.cs" />
     <Compile Include="Response\Tasks\Input.cs" />
+    <Compile Include="Response\Tasks\DeleteTask.cs" />
+    <Compile Include="Response\Tasks\UntagTask.cs" />
+    <Compile Include="Response\Tasks\TaskDetail.cs" />
     <Compile Include="Response\Tasks\Templates\Dataset.cs" />
     <Compile Include="Response\Tasks\Templates\EstimationProcedure.cs" />
     <Compile Include="Response\Tasks\TaskType.cs" />
@@ -111,6 +115,9 @@
     <Compile Include="Response\Tasks\Templates\Feature.cs" />
     <Compile Include="Response\Tasks\Templates\Parameter.cs" />
     <Compile Include="Response\Tasks\Templates\Predictions.cs" />
+    <Compile Include="Response\Tasks\TagTask.cs" />
+    <Compile Include="Response\Tasks\UploadTask.cs" />
+    <Compile Include="Response\Tasks\UploadTaskDescription.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

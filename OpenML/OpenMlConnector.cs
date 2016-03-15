@@ -115,6 +115,68 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<DataDelete>("/data/{id}", ApiKey, parameters, Method.DELETE);
         }
 
+        //************************************ Task Section
+        public TaskDetail GetTask(int taskId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("id", taskId);
+            return _dao.ExecuteAuthenticatedRequest<TaskDetail>("/task/{id}", ApiKey, parameters);
+        }
+
+        public List<Task> ListTasks()
+        {
+            return _dao.ExecuteAuthenticatedRequest<List<Task>>("/task/list", ApiKey);
+        }
+
+        public List<Task> ListTasksOfType(int taskTypeId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("id", taskTypeId);
+            return _dao.ExecuteAuthenticatedRequest<List<Task>>("/task/list/{id}", ApiKey, parameters);
+        }
+
+        public UploadTask UploadTask(UploadTaskDescription datasetDescription)
+        {
+            var parameters = new Parameters();
+            var path = @"C:\Users\Kuba\Downloads\newtask.xml";
+            //parameters.AddPostParameter("description", System.IO.File.ReadAllText(path));
+            var fileParameters = new List<FileParameter>
+            {
+                new FileParameter
+                {
+                    ParameterName = "description",
+                    Content =  System.Text.Encoding.UTF8.GetBytes(datasetDescription.ToXml()),
+                    FileName = "newtask.xml"
+                }
+            };
+            return _dao.ExecuteAuthenticatedRequest<UploadTask>("/task", ApiKey, parameters, Method.POST, fileParameters);
+        }
+
+        public TagTask TagTask(int taskId, string tag)
+        {
+            var parameters = new Parameters();
+            parameters.AddPostParameter("task_id", taskId);
+            parameters.AddPostParameter("tag", tag);
+            return _dao.ExecuteAuthenticatedRequest<TagTask>("/task/tag", ApiKey, parameters, Method.POST);
+        }
+
+        public UntagTask UntagTask(int taskId, string tag)
+        {
+            var parameters = new Parameters();
+            parameters.AddPostParameter("task_id", taskId);
+            parameters.AddPostParameter("tag", tag);
+            return _dao.ExecuteAuthenticatedRequest<UntagTask>("/task/untag", ApiKey, parameters, Method.POST);
+        }
+
+        public DeleteTask DeleteTask(int taskId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("id", taskId);
+            return _dao.ExecuteAuthenticatedRequest<DeleteTask>("/task/{id} ", ApiKey, parameters, Method.DELETE);
+        }
+
+        //************************************ TaskType
+
         /// <summary>
         /// List all evaluation measures used in OpenMl
         /// </summary>
@@ -133,11 +195,6 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<List<TaskType>>("tasktype/list", ApiKey);
         }
 
-        public List<Task> ListTasks()
-        {
-            return _dao.ExecuteAuthenticatedRequest<List<Task>>("task/list", ApiKey);
-        }
-
         /// <summary>
         /// Get task type by id
         /// </summary>
@@ -149,13 +206,6 @@ namespace OpenML
             parameters.AddUrlSegment("task_id", taskTypeId);
             return _dao.ExecuteAuthenticatedRequest<TaskType>("tasktype/{task_id}", ApiKey, parameters);
         }
-
-        //public Task GetTask(int taskId)
-        //{
-        //    var parameters = new Parameters();
-        //    parameters.AddUrlSegment("task_id", taskId);
-        //    return _dao.ExecuteAuthenticatedRequest<Task>("task/{task_id}", ApiKey, parameters);
-        //}
 
         /// <summary>
         /// Get estimation procedure by id
@@ -227,35 +277,5 @@ namespace OpenML
             var result= _dao.ExecuteFreeQuery(freeQuery);
             return result;
         }
-
-        public void UploadFile()
-        {
-            string filePath = "dataset_61_iris.arff";
-            var parameters = new Parameters();
-            var content = System.IO.File.ReadAllText(filePath);
-            string description = @"
-<oml:data_set_description xmlns:oml=""http://openml.org/openml"">
-    <oml:name>irisTestUpload</oml:name>
-  <oml:version>1</oml:version>
-  <oml:description>Test of .Net upload</oml:description>
-  <oml:format>ARFF</oml:format>
-  <oml:creator>R.A. Fisher</oml:creator>		
-<oml:collection_date>1936</oml:collection_date>	
-<oml:upload_date>2014-04-06 23:23:39</oml:upload_date>
-    <oml:licence>Public</oml:licence>  
-  <oml:default_target_attribute>class</oml:default_target_attribute>   
-<oml:version_label>1</oml:version_label>   
-<oml:tag>uci</oml:tag>
-<oml:visibility>public</oml:visibility> 
-<oml:original_data_url>https://archive.ics.uci.edu/ml/datasets/Iris</oml:original_data_url> 
-<oml:paper_url>http://digital.library.adelaide.edu.au/dspace/handle/2440/15227</oml:paper_url>
-<oml:status>active</oml:status>
-  <oml:md5_checksum>3a212cce13fc6f9b94f4793285813d95</oml:md5_checksum>
-</oml:data_set_description>";
-            parameters.AddPostParameter("description",description);
-            parameters.AddContentParameter("dataset",content );
-            _dao.ExecuteAuthenticatedRequest<Run>("openml.data.upload", ApiKey, parameters);
-        }
-
     }
 }

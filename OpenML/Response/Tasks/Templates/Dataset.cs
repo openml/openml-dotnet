@@ -2,7 +2,7 @@
 {
     public class Dataset
     {
-        public string DataSetId { get; set; }
+        public int DataSetId { get; set; }
         public string TargetFeature { get; set; }
     }
 }
