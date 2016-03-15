@@ -70,6 +70,8 @@
     <Compile Include="Authentication\Utilities.cs" />
     <Compile Include="OpenMlConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response\Datasets\DataDelete.cs" />
+    <Compile Include="Response\Datasets\Feature.cs" />
     <Compile Include="Response\Datasets\Quality.cs" />
     <Compile Include="Response\Flows\FlowDetail.cs" />
     <Compile Include="Response\Flows\Flow.cs" />

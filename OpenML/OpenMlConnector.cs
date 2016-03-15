@@ -1,15 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using OpenML.Authentication;
+﻿using System.Collections.Generic;
 using OpenML.Dao;
 using OpenML.Response;
 using OpenML.Response.DataQuality;
+using OpenML.Response.Datasets;
 using OpenML.Response.Flows;
 using OpenML.Response.FreeQuery;
 using OpenML.Response.OpenMlRun;
 using OpenML.Response.Tasks;
+using RestSharp;
 using Quality = OpenML.Response.Datasets.Quality;
 
 namespace OpenML
@@ -32,14 +30,60 @@ namespace OpenML
             _dao = new OpenMlDao();
             ApiKey = apiKey;
         }
-        
+
+        /// <summary>
+        /// Gets dataset description by id
+        /// </summary>
+        /// <param name="datasetId">Id of the dataset</param>
+        /// <returns>Dataset desription with the specified id</returns>
+        public DatasetDescription GetDatasetDescription(int datasetId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("id", datasetId);
+            return _dao.ExecuteAuthenticatedRequest<DatasetDescription>("/data/{id}", ApiKey, parameters);
+        }
+
+        public List<Feature> GetDataFeatures(int datasetId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("id", datasetId);
+            return _dao.ExecuteAuthenticatedRequest<List<Feature>>("/data/features/{id}", ApiKey, parameters);
+        }
+
+        public List<Quality> GetDatasetQualities(int datasetId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("id", datasetId);
+            return _dao.ExecuteAuthenticatedRequest<List<Quality>>("/data/qualities/{id}", ApiKey, parameters);
+        }
+
         /// <summary>
         /// List all datasets in the OpenMl repository
         /// </summary>
         /// <returns>List of datasets</returns>
         public List<Response.Dataset> ListDatasets()
         {
-            return _dao.ExecuteAuthenticatedRequest<Data>("data/list/", ApiKey).Datasets;
+            return _dao.ExecuteAuthenticatedRequest<Data>("/data/list/", ApiKey).Datasets;
+        }
+
+        /// <summary>
+        /// List all data qualities (metafeatures) names
+        /// </summary>
+        /// <returns>List of names</returns>
+        public List<string> ListDataQualities()
+        {
+            return _dao.ExecuteAuthenticatedRequest<DataQualitiesList>("/data/qualities/list", ApiKey).QualitiesNames;
+        }
+
+        //TODO: upload dataset
+        //Tag Dataset
+        //UnTag Dataset
+
+        public DataDelete DeleteDataset(int datasetId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("id", datasetId);
+            return _dao.ExecuteAuthenticatedRequest<DataDelete>("/data/{id}", ApiKey, parameters, Method.DELETE);
         }
 
         /// <summary>
@@ -50,15 +94,6 @@ namespace OpenML
         {
             return _dao.ExecuteAuthenticatedRequest<EvaluationMeasures>("evaluationmeasure/list", ApiKey);
         }
-
-        /// <summary>
-        /// List all data qualities (metafeatures) names
-        /// </summary>
-        /// <returns>List of names</returns>
-        public List<String> ListDataQualities()
-        {
-            return _dao.ExecuteAuthenticatedRequest<DataQualitiesList>("data/qualities/list", ApiKey).QualitiesNames;
-        } 
 
         /// <summary>
         /// List all task types in OpenMl, currently not implemented in the API
@@ -111,25 +146,6 @@ namespace OpenML
         } 
 
         /// <summary>
-        /// Gets dataset description by id
-        /// </summary>
-        /// <param name="datasetId">Id of the dataset</param>
-        /// <returns>Dataset desription with the specified id</returns>
-        public DatasetDescription GetDatasetDescription(int datasetId)
-        {
-            var parameters = new Parameters();
-            parameters.AddUrlSegment("data_id",datasetId);
-            return _dao.ExecuteAuthenticatedRequest<DatasetDescription>("data/{data_id}", ApiKey, parameters);
-        }
-
-        public List<Quality> GetDatasetQualities(int datasetId)
-        {
-            var parameters = new Parameters();
-            parameters.AddUrlSegment("data_id", datasetId);
-            return _dao.ExecuteAuthenticatedRequest<List<Quality>>("/data/qualities/{data_id}", ApiKey, parameters);
-        }
-
-        /// <summary>
         /// Get details of the selected run
         /// </summary>
         /// <param name="runId">Id of the run in question</param>
@@ -165,6 +181,12 @@ namespace OpenML
             parameters.AddUrlSegment("name", name);
             return _dao.ExecuteAuthenticatedRequest<FlowExist>("flow/exists/{name}/{version}", ApiKey, parameters);
         }
+
+        public List<int> FlowOwnedByMe()
+        {
+            var parameters = new Parameters();
+            return _dao.ExecuteAuthenticatedRequest<List<int>>("flow/owned", ApiKey, parameters);
+        } 
 
         /// <summary>
         /// Executes free query on the openMl database
