@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using OpenML.Response.FreeQuery;
 using RestSharp;
 
-
 namespace OpenML.Dao
 {
     public class OpenMlDao
@@ -23,7 +22,7 @@ namespace OpenML.Dao
             _client = new RestClient(endpointUrl) {Timeout = int.MaxValue};
         }
 
-        public T ExecuteRequest<T>(string url,List<Parameter> parameters=null, Method method = Method.GET) where T : class, new()
+        public T ExecuteRequest<T>(string url, List<Parameter> parameters = null, Method method = Method.GET, List<FileParameter> files = null) where T : class, new()
         {
             var request = new RestRequest(url, method)
             {
@@ -32,6 +31,13 @@ namespace OpenML.Dao
             if (parameters!=null)
             {
                 request.Parameters.AddRange(parameters);
+            }
+            if (files != null)
+            {
+                foreach (var fileParameter in files)
+                {
+                    request.AddFile(fileParameter.ParameterName, fileParameter.Content, fileParameter.FileName);
+                }
             }
             IRestResponse<T> response = _client.Execute<T>(request);
             if (response.StatusCode != HttpStatusCode.OK)
@@ -42,11 +48,11 @@ namespace OpenML.Dao
             return response.Data;
         }
 
-        public T ExecuteAuthenticatedRequest<T>(string url,string apiKey, List<Parameter> parameters = null, Method method = Method.GET) where T : class, new()
+        public T ExecuteAuthenticatedRequest<T>(string url,string apiKey, List<Parameter> parameters = null, Method method = Method.GET, List<FileParameter> files = null) where T : class, new()
         {
             var paramsWithApiKey = parameters ?? new List<Parameter>();            
             paramsWithApiKey.Add(new Parameter { Name="api_key",Value= apiKey, Type = ParameterType.QueryString});            
-            return ExecuteRequest<T>(url, paramsWithApiKey, method);
+            return ExecuteRequest<T>(url, paramsWithApiKey, method, files);
         }
 
         public FreeQueryResult ExecuteFreeQuery(string freeQuery)

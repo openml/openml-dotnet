@@ -8,6 +8,7 @@ using OpenML.Response.FreeQuery;
 using OpenML.Response.OpenMlRun;
 using OpenML.Response.Tasks;
 using RestSharp;
+using FileParameter = OpenML.Dao.FileParameter;
 using Quality = OpenML.Response.Datasets.Quality;
 
 namespace OpenML
@@ -75,9 +76,37 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<DataQualitiesList>("/data/qualities/list", ApiKey).QualitiesNames;
         }
 
-        //TODO: upload dataset
-        //Tag Dataset
-        //UnTag Dataset
+        public UploadDataSet UploadDataSet(string datasetPath, UploadDatasetDescription datasetDescription)
+        {
+            var parameters = new Parameters();
+            parameters.AddPostParameter("description", datasetDescription.ToXml());
+            var fileParameters = new List<FileParameter>
+            {
+                new FileParameter
+                {
+                    ParameterName = "dataset",
+                    Content = System.IO.File.ReadAllBytes(datasetPath),
+                    FileName = System.IO.Path.GetFileName(datasetPath)
+                }
+            };
+            return _dao.ExecuteAuthenticatedRequest<UploadDataSet>("/data", ApiKey, parameters, Method.POST, fileParameters);
+        }
+
+        public DataTag TagDataSet(int datasetId, string tag)
+        {
+            var parameters = new Parameters();
+            parameters.AddPostParameter("data_id", datasetId);
+            parameters.AddPostParameter("tag", tag);
+            return _dao.ExecuteAuthenticatedRequest<DataTag>("/data/tag", ApiKey, parameters, Method.POST);
+        }
+
+        public DataUntag UntagDataSet(int datasetId, string tag)
+        {
+            var parameters = new Parameters();
+            parameters.AddPostParameter("data_id", datasetId);
+            parameters.AddPostParameter("tag", tag);
+            return _dao.ExecuteAuthenticatedRequest<DataUntag>("/data/untag", ApiKey, parameters, Method.POST);
+        }
 
         public DataDelete DeleteDataset(int datasetId)
         {
