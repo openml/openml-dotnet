@@ -6,6 +6,7 @@ using OpenML.Authentication;
 using OpenML.Dao;
 using OpenML.Response;
 using OpenML.Response.DataQuality;
+using OpenML.Response.Flows;
 using OpenML.Response.FreeQuery;
 using OpenML.Response.OpenMlRun;
 using OpenML.Response.Tasks;
@@ -140,6 +141,31 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<Run>("run/{run_id}", ApiKey, parameters);
         }
 
+        public List<Flow> GetFlows()
+        {
+            var parameters = new Parameters();
+            return _dao.ExecuteAuthenticatedRequest<List<Flow>>("/flow/list", ApiKey, parameters);
+        }
+
+        public FlowDetail GetFlow(int flowId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("flow_id", flowId);
+            return _dao.ExecuteAuthenticatedRequest<FlowDetail>("flow/{flow_id}", ApiKey, parameters);
+        }
+
+        /// <summary>
+        /// Checks whether a flow with the given name and (external) version exists.
+        /// </summary>
+        /// <returns></returns>
+        public FlowExist FlowExist(string name, string externalVersion)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("version", externalVersion);
+            parameters.AddUrlSegment("name", name);
+            return _dao.ExecuteAuthenticatedRequest<FlowExist>("flow/exists/{name}/{version}", ApiKey, parameters);
+        }
+
         /// <summary>
         /// Executes free query on the openMl database
         /// </summary>
@@ -179,5 +205,6 @@ namespace OpenML
             parameters.AddContentParameter("dataset",content );
             _dao.ExecuteAuthenticatedRequest<Run>("openml.data.upload", ApiKey, parameters);
         }
+
     }
 }

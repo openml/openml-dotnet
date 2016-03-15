@@ -15,19 +15,19 @@ namespace OpenML.Dao
 
         public OpenMlDao()
         {
-            _client = new RestClient(_urlEndpoint);            
+            _client = new RestClient(_urlEndpoint) {Timeout = int.MaxValue};
         }
 
         public OpenMlDao(string endpointUrl)
         {
-            _client = new RestClient(endpointUrl);
+            _client = new RestClient(endpointUrl) {Timeout = int.MaxValue};
         }
 
         public T ExecuteRequest<T>(string url,List<Parameter> parameters=null) where T : class, new()
         {
             var request = new RestRequest(url, Method.GET)
             {
-                DateFormat = "dd-MM-yyyy"
+                DateFormat = "yyyy-MM-dd HH:mm:ss"
             };
             if (parameters!=null)
             {
