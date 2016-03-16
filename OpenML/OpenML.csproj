@@ -78,10 +78,15 @@
     <Compile Include="Response\Datasets\Quality.cs" />
     <Compile Include="Response\Datasets\UploadDataSet.cs" />
     <Compile Include="Response\Datasets\UploadDatasetDescription.cs" />
+    <Compile Include="Response\Flows\DeleteFlow.cs" />
     <Compile Include="Response\Flows\FlowDetail.cs" />
     <Compile Include="Response\Flows\Flow.cs" />
     <Compile Include="Response\Flows\FlowExist.cs" />
+    <Compile Include="Response\Flows\FlowUpload.cs" />
     <Compile Include="Response\Flows\Parameter.cs" />
+    <Compile Include="Response\Flows\TagFlow.cs" />
+    <Compile Include="Response\Flows\UntagFlow.cs" />
+    <Compile Include="Response\Flows\UploadFlowDescription.cs" />
     <Compile Include="Response\Quality.cs" />
     <Compile Include="Response\Tasks\Contributor.cs" />
     <Compile Include="Response\Data.cs" />
@@ -123,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Response\Flows\uploadFlowSchema.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

@@ -18,18 +18,8 @@ namespace OpenML.Response.Tasks
     public class UploadTaskDescription
     {
         public int TaskTypeId { get; set; }
-        //public Output Output { get; set; }
         public List<InputDescription> Inputs { get; set; }
-
-        /*
-        <oml:task_new xmlns:oml="http://openml.org/openml">
-  <oml:task_type_id>1</oml:task_type_id>
-  <oml:input name="source_data">1</oml:input>
-  <oml:input name="target_feature">class</oml:input>
-</oml:task_new>
-
-        */
-
+        
         public UploadTaskDescription(int taskTypeId, List<InputDescription> inputs)
         {
             TaskTypeId = taskTypeId;
