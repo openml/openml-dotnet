@@ -176,14 +176,16 @@ namespace OpenML
         }
 
         //************************************ TaskType
-
         /// <summary>
-        /// List all evaluation measures used in OpenMl
+        /// Get task type by id
         /// </summary>
-        /// <returns>List of evaluation measures</returns>
-        public EvaluationMeasures ListEvaluationMeasures()
+        /// <param name="taskTypeId">Id of the task type</param>
+        /// <returns>Task type with the specified id</returns>
+        public TaskTypeDetail GetTaskType(int taskTypeId)
         {
-            return _dao.ExecuteAuthenticatedRequest<EvaluationMeasures>("evaluationmeasure/list", ApiKey);
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("id", taskTypeId);
+            return _dao.ExecuteAuthenticatedRequest<TaskTypeDetail>("/tasktype/{id}", ApiKey, parameters);
         }
 
         /// <summary>
@@ -196,15 +198,12 @@ namespace OpenML
         }
 
         /// <summary>
-        /// Get task type by id
+        /// List all evaluation measures used in OpenMl
         /// </summary>
-        /// <param name="taskTypeId">Id of the task type</param>
-        /// <returns>Task type with the specified id</returns>
-        public TaskType GetTaskType(int taskTypeId)
+        /// <returns>List of evaluation measures</returns>
+        public EvaluationMeasures ListEvaluationMeasures()
         {
-            var parameters = new Parameters();
-            parameters.AddUrlSegment("task_id", taskTypeId);
-            return _dao.ExecuteAuthenticatedRequest<TaskType>("tasktype/{task_id}", ApiKey, parameters);
+            return _dao.ExecuteAuthenticatedRequest<EvaluationMeasures>("evaluationmeasure/list", ApiKey);
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 {
     public class Dataset
     {
-        public int DataSetId { get; set; }
+        public string DataSetId { get; set; } //this is string because the task type template has this as string
         public string TargetFeature { get; set; }
     }
 }

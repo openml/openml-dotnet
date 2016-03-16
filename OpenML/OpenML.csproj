@@ -105,11 +105,13 @@
     <Compile Include="Response\Task.cs" />
     <Compile Include="Response\Tasks\Input.cs" />
     <Compile Include="Response\Tasks\DeleteTask.cs" />
+    <Compile Include="Response\Tasks\Output.cs" />
+    <Compile Include="Response\Tasks\TaskType.cs" />
     <Compile Include="Response\Tasks\UntagTask.cs" />
     <Compile Include="Response\Tasks\TaskDetail.cs" />
     <Compile Include="Response\Tasks\Templates\Dataset.cs" />
     <Compile Include="Response\Tasks\Templates\EstimationProcedure.cs" />
-    <Compile Include="Response\Tasks\TaskType.cs" />
+    <Compile Include="Response\Tasks\TaskTypeDetail.cs" />
     <Compile Include="Response\Tasks\Templates\EvaluationMeasures.cs" />
     <Compile Include="Response\Tasks\Templates\Measure.cs" />
     <Compile Include="Response\Tasks\Templates\Feature.cs" />
