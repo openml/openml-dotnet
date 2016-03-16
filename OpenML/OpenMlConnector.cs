@@ -89,12 +89,7 @@ namespace OpenML
             parameters.AddPostParameter("description", datasetDescription.ToXml());
             var fileParameters = new List<FileParameter>
             {
-                new FileParameter
-                {
-                    ParameterName = "dataset",
-                    Content = System.IO.File.ReadAllBytes(datasetPath),
-                    FileName = System.IO.Path.GetFileName(datasetPath)
-                }
+                new FileParameter("dataset", datasetPath)
             };
             return _dao.ExecuteAuthenticatedRequest<UploadDataSet>("/data", ApiKey, parameters, Method.POST, fileParameters);
         }
@@ -254,12 +249,7 @@ namespace OpenML
             parameters.AddPostParameter("description", datasetDescription.ToXml());
             var fileParameters = new List<FileParameter>
             {
-                new FileParameter
-                {
-                    ParameterName = "flow",
-                    Content = System.IO.File.ReadAllBytes(flowSourcePath),
-                    FileName = System.IO.Path.GetFileName(flowSourcePath)
-                }
+                new FileParameter("flow", flowSourcePath)
             };
             return _dao.ExecuteAuthenticatedRequest<FlowUpload>("/flow", ApiKey, parameters, Method.POST, fileParameters);
         }
@@ -284,10 +274,114 @@ namespace OpenML
         {
             var parameters = new Parameters();
             parameters.AddUrlSegment("id", flowId);
-            return _dao.ExecuteAuthenticatedRequest<DeleteFlow>("/flow/{id} ", ApiKey, parameters, Method.DELETE);
+            return _dao.ExecuteAuthenticatedRequest<DeleteFlow>("/flow/{id}", ApiKey, parameters, Method.DELETE);
         }
 
-        //****************************************
+        //**************************************** Run
+        /// <summary>
+        /// Get details of the selected run
+        /// </summary>
+        /// <param name="runId">Id of the run in question</param>
+        /// <returns>RunDetail details</returns>
+        public RunDetail GetRun(int runId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("id", runId);
+            return _dao.ExecuteAuthenticatedRequest<RunDetail>("/run/{id}", ApiKey, parameters);
+        }
+
+        public List<Run> GetRunsByIds(List<int> ids)
+        {
+            var parameters = new Parameters();
+            string stringIds = string.Join(",", ids);
+            parameters.AddUrlSegment("ids", stringIds);
+            return _dao.ExecuteAuthenticatedRequest<List<Run>>("/run/list/run/{ids}", ApiKey, parameters);
+        }
+
+        public List<Run> GetRunsByTag(string tag)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("tag", tag);
+            return _dao.ExecuteAuthenticatedRequest<List<Run>>("/run/list/tag/{tag}", ApiKey, parameters);
+        }
+
+        public List<Run> GetRunsByTaskIds(List<int> ids)
+        {
+            var parameters = new Parameters();
+            string stringIds = string.Join(",", ids);
+            parameters.AddUrlSegment("ids", stringIds);
+            return _dao.ExecuteAuthenticatedRequest<List<Run>>("/run/list/task/{ids}", ApiKey, parameters);
+        }
+
+        public List<Run> GetRunsByUploaderIds(List<int> ids)
+        {
+            var parameters = new Parameters();
+            string stringIds = string.Join(",", ids);
+            parameters.AddUrlSegment("ids", stringIds);
+            return _dao.ExecuteAuthenticatedRequest<List<Run>>("/run/list/uploader/{ids}", ApiKey, parameters);
+        }
+
+        public List<Run> GetRunsByFlowIds(List<int> ids)
+        {
+            var parameters = new Parameters();
+            string stringIds = string.Join(",", ids);
+            parameters.AddUrlSegment("ids", stringIds);
+            return _dao.ExecuteAuthenticatedRequest<List<Run>>("/run/list/flow/{ids}", ApiKey, parameters);
+        }
+
+        public List<Run> GetRunsWithFilter(List<int> runIds, 
+            List<int> taskIds,
+            List<int> uploaderIds,
+            List<int> flowIds)
+        {
+            string filter = "";
+            if (runIds?.Count > 0)
+            {
+                filter=filter+"run/"+ string.Join(",", runIds)+"/";
+            }
+            if (taskIds?.Count > 0)
+            {
+                filter = filter + "task/" + string.Join(",", taskIds) + "/";
+            }
+            if (flowIds?.Count > 0)
+            {
+                filter = filter + "flow/" + string.Join(",", flowIds) + "/";
+            }
+            if (uploaderIds?.Count > 0)
+            {
+                filter = filter + "uploader/" + string.Join(",", uploaderIds) + "/";
+            }
+            var parameters = new Parameters();
+            return _dao.ExecuteAuthenticatedRequest<List<Run>>("/run/list/"+filter, ApiKey, parameters);
+        }
+
+        public TagRun TagRun(int runId, string tag)
+        {
+            var parameters = new Parameters();
+            parameters.AddPostParameter("run_id", runId);
+            parameters.AddPostParameter("tag", tag);
+            return _dao.ExecuteAuthenticatedRequest<TagRun>("/run/tag", ApiKey, parameters, Method.POST);
+        }
+
+        public UntagRun UntagRun(int runId, string tag)
+        {
+            var parameters = new Parameters();
+            parameters.AddPostParameter("run_id", runId);
+            parameters.AddPostParameter("tag", tag);
+            return _dao.ExecuteAuthenticatedRequest<UntagRun>("/run/untag ", ApiKey, parameters, Method.POST);
+        }
+
+        public DeleteRun DeleteRun(int runId)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("id", runId);
+            return _dao.ExecuteAuthenticatedRequest<DeleteRun>("/run/{id}", ApiKey, parameters, Method.DELETE);
+        }
+
+        //**************************************** Evaluation
+
+
+        //**************************************
 
         /// <summary>
         /// List all evaluation measures used in OpenMl
@@ -314,18 +408,6 @@ namespace OpenML
         {
             return _dao.ExecuteAuthenticatedRequest<List<EstimationProcedure>>("estimationprocedure/list", ApiKey);
         } 
-
-        /// <summary>
-        /// Get details of the selected run
-        /// </summary>
-        /// <param name="runId">Id of the run in question</param>
-        /// <returns>Run details</returns>
-        public Run GetRun(int runId)
-        {
-            var parameters = new Parameters();
-            parameters.AddUrlSegment("run_id", runId);
-            return _dao.ExecuteAuthenticatedRequest<Run>("run/{run_id}", ApiKey, parameters);
-        }
 
         /// <summary>
         /// Executes free query on the openMl database

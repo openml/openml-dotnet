@@ -87,6 +87,11 @@
     <Compile Include="Response\Flows\TagFlow.cs" />
     <Compile Include="Response\Flows\UntagFlow.cs" />
     <Compile Include="Response\Flows\UploadFlowDescription.cs" />
+    <Compile Include="Response\OpenMlRun\DeleteRun.cs" />
+    <Compile Include="Response\OpenMlRun\Run.cs" />
+    <Compile Include="Response\OpenMlRun\TagRun.cs" />
+    <Compile Include="Response\OpenMlRun\UntagRun.cs" />
+    <Compile Include="Response\OpenMlRun\UploadRun.cs" />
     <Compile Include="Response\Quality.cs" />
     <Compile Include="Response\Tasks\Contributor.cs" />
     <Compile Include="Response\Data.cs" />
@@ -105,7 +110,7 @@
     <Compile Include="Response\Measure.cs" />
     <Compile Include="Response\OpenMlRun\OutputData.cs" />
     <Compile Include="Response\ParameterSetting.cs" />
-    <Compile Include="Response\OpenMlRun\Run.cs" />
+    <Compile Include="Response\OpenMlRun\RunDetail.cs" />
     <Compile Include="Response\Tag.cs" />
     <Compile Include="Response\Task.cs" />
     <Compile Include="Response\Tasks\Input.cs" />

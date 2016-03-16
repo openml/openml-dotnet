@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="BaseApiConnectorTest.cs" />
     <Compile Include="DatasetTests.cs" />
+    <Compile Include="RunTests.cs" />
     <Compile Include="TaskTypeTests.cs" />
     <Compile Include="FlowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
