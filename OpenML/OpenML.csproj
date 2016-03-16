@@ -78,6 +78,7 @@
     <Compile Include="Response\Datasets\Quality.cs" />
     <Compile Include="Response\Datasets\UploadDataSet.cs" />
     <Compile Include="Response\Datasets\UploadDatasetDescription.cs" />
+    <Compile Include="Response\Evaluations\Evaluation.cs" />
     <Compile Include="Response\Flows\DeleteFlow.cs" />
     <Compile Include="Response\Flows\FlowDetail.cs" />
     <Compile Include="Response\Flows\Flow.cs" />

@@ -58,7 +58,7 @@ namespace OpenML.Tests
         public void TestGetRunsWithFilter()
         {
             var runs = Connector.GetRunsWithFilter(
-             new List<int> {1}, new List<int> { 68 }, new List<int> { 1 }, new List<int> { 61 });
+             new List<int> {1}, new List<int> { 68 }, new List<int> { 1 }, new List<int> { 61 },null);
             Assert.IsTrue(runs.Count > 0);
         }
     }

@@ -332,7 +332,8 @@ namespace OpenML
         public List<Run> GetRunsWithFilter(List<int> runIds, 
             List<int> taskIds,
             List<int> uploaderIds,
-            List<int> flowIds)
+            List<int> flowIds,
+            string tag)
         {
             string filter = "";
             if (runIds?.Count > 0)
@@ -350,6 +351,10 @@ namespace OpenML
             if (uploaderIds?.Count > 0)
             {
                 filter = filter + "uploader/" + string.Join(",", uploaderIds) + "/";
+            }
+            if (string.IsNullOrEmpty(tag))
+            {
+                filter = filter + "tag/" + tag + "/";
             }
             var parameters = new Parameters();
             return _dao.ExecuteAuthenticatedRequest<List<Run>>("/run/list/"+filter, ApiKey, parameters);
@@ -379,7 +384,74 @@ namespace OpenML
         }
 
         //**************************************** Evaluation
+        public List<Response.Evaluations.Evaluation> GetEvaluationsByRunIds(List<int> ids)
+        {
+            var parameters = new Parameters();
+            string stringIds = string.Join(",", ids);
+            parameters.AddUrlSegment("ids", stringIds);
+            return _dao.ExecuteAuthenticatedRequest<List<Response.Evaluations.Evaluation>>("/evaluation/list/run/{ids}", ApiKey, parameters);
+        }
 
+        public List<Response.Evaluations.Evaluation> GetEvaluationsByTag(string tag)
+        {
+            var parameters = new Parameters();
+            parameters.AddUrlSegment("tag", tag);
+            return _dao.ExecuteAuthenticatedRequest<List<Response.Evaluations.Evaluation>>("/evaluation/list/tag/{tag}", ApiKey, parameters);
+        }
+
+        public List<Response.Evaluations.Evaluation> GetEvaluationsByTaskIds(List<int> ids)
+        {
+            var parameters = new Parameters();
+            string stringIds = string.Join(",", ids);
+            parameters.AddUrlSegment("ids", stringIds);
+            return _dao.ExecuteAuthenticatedRequest<List<Response.Evaluations.Evaluation>>("/evaluation/list/task/{ids}", ApiKey, parameters);
+        }
+        public List<Response.Evaluations.Evaluation> GetEvaluationsByUploaderIds(List<int> ids)
+        {
+            var parameters = new Parameters();
+            string stringIds = string.Join(",", ids);
+            parameters.AddUrlSegment("ids", stringIds);
+            return _dao.ExecuteAuthenticatedRequest<List<Response.Evaluations.Evaluation>>("/evaluation/list/uploader/{ids}", ApiKey, parameters);
+        }
+
+        public List<Response.Evaluations.Evaluation> GetEvaluationsByFlowIds(List<int> ids)
+        {
+            var parameters = new Parameters();
+            string stringIds = string.Join(",", ids);
+            parameters.AddUrlSegment("ids", stringIds);
+            return _dao.ExecuteAuthenticatedRequest<List<Response.Evaluations.Evaluation>>("/evaluation/list/flow/{ids}", ApiKey, parameters);
+        }
+
+        public List<Response.Evaluations.Evaluation> GetEvaluationsWithFilter(List<int> runIds,
+            List<int> taskIds,
+            List<int> uploaderIds,
+            List<int> flowIds,
+            string tag)
+        {
+            string filter = "";
+            if (runIds?.Count > 0)
+            {
+                filter = filter + "run/" + string.Join(",", runIds) + "/";
+            }
+            if (taskIds?.Count > 0)
+            {
+                filter = filter + "task/" + string.Join(",", taskIds) + "/";
+            }
+            if (flowIds?.Count > 0)
+            {
+                filter = filter + "flow/" + string.Join(",", flowIds) + "/";
+            }
+            if (uploaderIds?.Count > 0)
+            {
+                filter = filter + "uploader/" + string.Join(",", uploaderIds) + "/";
+            }
+            if (string.IsNullOrEmpty(tag))
+            {
+                filter = filter + "tag/" + tag + "/";
+            }
+            var parameters = new Parameters();
+            return _dao.ExecuteAuthenticatedRequest<List<Response.Evaluations.Evaluation>>("/evaluation/list/" + filter, ApiKey, parameters);
+        }
 
         //**************************************
 
