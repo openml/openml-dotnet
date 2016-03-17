@@ -94,6 +94,17 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<UploadDataSet>("/data", ApiKey, parameters, Method.POST, fileParameters);
         }
 
+        public UploadDataSet UploadDataSet(string datasetPath, string datasetDescriptionPath)
+        {
+            var parameters = new Parameters();
+            var fileParameters = new List<FileParameter>
+            {
+                new FileParameter("dataset", datasetPath),
+                new FileParameter("description", datasetDescriptionPath)
+            };
+            return _dao.ExecuteAuthenticatedRequest<UploadDataSet>("/data", ApiKey, parameters, Method.POST, fileParameters);
+        }
+
         public DataTag TagDataSet(int datasetId, string tag)
         {
             var parameters = new Parameters();
@@ -144,7 +155,7 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<List<Task>>("/task/list/tag/{tag}", ApiKey, parameters);
         }
 
-        public UploadTask UploadTask(UploadTaskDescription datasetDescription)
+        public UploadTask UploadTask(UploadTaskDescription taskDescription)
         {
             var parameters = new Parameters();
             var fileParameters = new List<FileParameter>
@@ -152,9 +163,19 @@ namespace OpenML
                 new FileParameter
                 {
                     ParameterName = "description",
-                    Content =  System.Text.Encoding.UTF8.GetBytes(datasetDescription.ToXml()),
+                    Content =  System.Text.Encoding.UTF8.GetBytes(taskDescription.ToXml()),
                     FileName = "newtask.xml"
                 }
+            };
+            return _dao.ExecuteAuthenticatedRequest<UploadTask>("/task", ApiKey, parameters, Method.POST, fileParameters);
+        }
+
+        public UploadTask UploadTask(string taskDescriptionPath)
+        {
+            var parameters = new Parameters();
+            var fileParameters = new List<FileParameter>
+            {
+                new FileParameter("description", taskDescriptionPath)
             };
             return _dao.ExecuteAuthenticatedRequest<UploadTask>("/task", ApiKey, parameters, Method.POST, fileParameters);
         }
@@ -243,13 +264,13 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<List<int>>("flow/owned", ApiKey, parameters);
         }
 
-        public FlowUpload UploadFlow(UploadFlowDescription datasetDescription, string flowSourcePath)
+        public FlowUpload UploadFlow(string descriptionPath, string flowSourcePath)
         {
             var parameters = new Parameters();
-            parameters.AddPostParameter("description", datasetDescription.ToXml());
             var fileParameters = new List<FileParameter>
             {
-                new FileParameter("flow", flowSourcePath)
+                new FileParameter("flow", flowSourcePath),
+                new FileParameter("description", descriptionPath)
             };
             return _dao.ExecuteAuthenticatedRequest<FlowUpload>("/flow", ApiKey, parameters, Method.POST, fileParameters);
         }
@@ -358,6 +379,25 @@ namespace OpenML
             }
             var parameters = new Parameters();
             return _dao.ExecuteAuthenticatedRequest<List<Run>>("/run/list/"+filter, ApiKey, parameters);
+        }
+
+        public UploadRun UploadRun(string descriptionPath, string predictionsPath, string humanReadableModelPath, string serializedModelPath)
+        {
+            var parameters = new Parameters();
+            var fileParameters = new List<FileParameter>
+            {
+                new FileParameter("description", descriptionPath),
+                new FileParameter("predictions", predictionsPath)
+            };
+            if (!string.IsNullOrEmpty(humanReadableModelPath))
+            {
+                fileParameters.Add(new FileParameter("model_readable", humanReadableModelPath));
+            }
+            if (!string.IsNullOrEmpty(serializedModelPath))
+            {
+                fileParameters.Add(new FileParameter("model_serialized", serializedModelPath));
+            }
+            return _dao.ExecuteAuthenticatedRequest<UploadRun>("/run", ApiKey, parameters, Method.POST, fileParameters);
         }
 
         public TagRun TagRun(int runId, string tag)
