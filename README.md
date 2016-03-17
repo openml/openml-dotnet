@@ -20,7 +20,9 @@ We are especially interested in dataset with Id 1:
 var dataSetDetail = Connector.GetDatasetDescription(1);</br>
 
 Let's download it:
-dataSetDetail.DownloadDataset("saveItHere");</br>
+```
+dataSetDetail.DownloadDataset("saveItHere");
+```
 
 See http://www.openml.org/api_docs/#!/data/get_data_id for the list of methods supported by the API.
 
