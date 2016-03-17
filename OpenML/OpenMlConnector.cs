@@ -490,6 +490,15 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<List<Response.Evaluations.Evaluation>>("/evaluation/list/flow/{ids}", ApiKey, parameters);
         }
 
+        /// <summary>
+        /// Get all evaluation conforming to the filter.
+        /// </summary>
+        /// <param name="runIds"></param>
+        /// <param name="taskIds"></param>
+        /// <param name="uploaderIds"></param>
+        /// <param name="flowIds"></param>
+        /// <param name="tag"></param>
+        /// <returns></returns>
         public List<Response.Evaluations.Evaluation> GetEvaluationsWithFilter(List<int> runIds,
             List<int> taskIds,
             List<int> uploaderIds,

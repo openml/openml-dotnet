@@ -87,7 +87,6 @@
     <Compile Include="Response\Flows\Parameter.cs" />
     <Compile Include="Response\Flows\TagFlow.cs" />
     <Compile Include="Response\Flows\UntagFlow.cs" />
-    <Compile Include="Response\Flows\UploadFlowDescription.cs" />
     <Compile Include="Response\OpenMlRun\DeleteRun.cs" />
     <Compile Include="Response\OpenMlRun\Run.cs" />
     <Compile Include="Response\OpenMlRun\TagRun.cs" />
