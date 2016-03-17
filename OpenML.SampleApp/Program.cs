@@ -14,11 +14,13 @@ namespace OpenML.SampleApp
         static void Main(string[] args)
         {
             var connector = new OpenMlConnector("");
-            var uploadedFlow = connector.UploadFlow(new UploadFlowDescription("testFlowKuba","kubakuba")
-            {
+            var result=connector.ExecuteFreeQuery("SELECT name,did FROM dataset");
+            var dataSetDetail = connector.GetDatasetDescription(1);
+            //var uploadedFlow = connector.UploadFlow(new UploadFlowDescription("testFlowKuba","kubakuba")
+            //{
 
-            }, @"C:\Users\Kuba\Downloads\weather.arff"
-            );
+            //}, @"C:\Users\Kuba\Downloads\weather.arff"
+            //);
 
             var uploadedTask = connector.UploadTask(new UploadTaskDescription(1, new List<InputDescription>
             {
@@ -42,17 +44,14 @@ namespace OpenML.SampleApp
             var dataQualities = connector.ListDataQualities();
             var dataFeatures = connector.GetDataFeatures(1);
             var flowsOwnedByMe = connector.FlowOwnedByMe();
-            var dataSetDetail = connector.GetDatasetDescription(1);
             dataSetDetail.DownloadDataset("test.arff");
             
             var estimationProc = connector.GetEstimationProcedure(1);
             var estimationProcs = connector.ListEstimationProcedures();
-            var run = connector.GetRun(3588);
             var measures = connector.ListEvaluationMeasures().Measures.Select(x=>x.Name);
             //connector.UploadFile();
             //var task = connector.GetTask(2);
             
-            var result=connector.ExecuteFreeQuery("SELECT name,did FROM dataset");
             string a = "";
 
         }
