@@ -38,10 +38,12 @@ var result = connector.ExecuteFreeQuery("SELECT name,did FROM dataset");
 ```
 See http://www.openml.org/api_docs/#!/data/get_data_id for the list of methods supported by the API.
 
-Get Involved:
+# Get Involved:
 Contribution to the OpenML package is highly appreciated. 
-Please send me an email beforehand so we can coordinate our efforts.
+Please <a href="mailto:jakub.smid@outlook.com?subject=OpenMl">send me an email</a> beforehand so we can coordinate our efforts.
 
 
-Send us Feedback:
-Found a bug? Do you use OpenMl? Let us know! 
+# Send us Feedback:
+Found a bug? Do you use OpenMl? 
+<a href="mailto:jakub.smid@outlook.com?subject=OpenMl">Let us know! </a>
+Or GitHub issue tracker: https://github.com/openml/dotnet/issues
