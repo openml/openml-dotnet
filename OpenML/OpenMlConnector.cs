@@ -25,7 +25,7 @@ namespace OpenML
         /// <summary>
         /// Creates OpenMlConnector instance and automatically connect
         /// </summary>
-        /// <param name="apiKey">OpenMl apiKey</param>
+        /// <param name="apiKey">OpenMl apiKey (You can obtain it on the website in your profile section)</param>
         public OpenMlConnector(string apiKey)
         {
             _dao = new OpenMlDao();
@@ -53,6 +53,10 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<Data>("/data/list/", ApiKey).Datasets;
         }
 
+        /// <summary>
+        /// Returns all datasets with a tag specified
+        /// </summary>
+        /// <returns></returns>
         public List<Response.Dataset> ListDatasetsWithTag(string tag)
         {
             var parameters = new Parameters();
@@ -60,6 +64,10 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<Data>("/data/list/tag/{tag}", ApiKey).Datasets;
         }
 
+        /// <summary>
+        /// Get all data features of the specified datasets (columns, types, etc.)
+        /// </summary>
+        /// <returns></returns>
         public List<Feature> GetDataFeatures(int datasetId)
         {
             var parameters = new Parameters();
@@ -67,6 +75,10 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<List<Feature>>("/data/features/{id}", ApiKey, parameters);
         }
 
+        /// <summary>
+        /// Gets all qualities (metafeatures) of the dataset specified
+        /// </summary>
+        /// <returns></returns>
         public List<Quality> GetDatasetQualities(int datasetId)
         {
             var parameters = new Parameters();
@@ -83,6 +95,12 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<DataQualitiesList>("/data/qualities/list", ApiKey).QualitiesNames;
         }
 
+        /// <summary>
+        /// Upload a new dataset
+        /// </summary>
+        /// <param name="datasetPath">Path of the dataset</param>
+        /// <param name="datasetDescription">Description of the dataset</param>
+        /// <returns></returns>
         public UploadDataSet UploadDataSet(string datasetPath, UploadDatasetDescription datasetDescription)
         {
             var parameters = new Parameters();
@@ -94,6 +112,12 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<UploadDataSet>("/data", ApiKey, parameters, Method.POST, fileParameters);
         }
 
+        /// <summary>
+        /// Upload a new dataset
+        /// </summary>
+        /// <param name="datasetPath">Path of the dataset</param>
+        /// <param name="datasetDescriptionPath">Path of the file with a description</param>
+        /// <returns></returns>
         public UploadDataSet UploadDataSet(string datasetPath, string datasetDescriptionPath)
         {
             var parameters = new Parameters();
@@ -141,6 +165,10 @@ namespace OpenML
             return _dao.ExecuteAuthenticatedRequest<List<Task>>("/task/list", ApiKey);
         }
 
+        /// <summary>
+        /// List all task of the type specified
+        /// </summary>
+        /// <returns></returns>
         public List<Task> ListTasksOfType(int taskTypeId)
         {
             var parameters = new Parameters();

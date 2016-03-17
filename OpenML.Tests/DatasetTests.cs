@@ -7,7 +7,7 @@ namespace OpenML.Tests
     public class DatasetTests: BaseApiConnectorTest
     {
         [TestMethod]
-        public void TestFlowExist()
+        public void TestGetDatasetDescription()
         {
             var dataSetDetail = Connector.GetDatasetDescription(1);
             Assert.IsTrue(!string.IsNullOrEmpty(dataSetDetail.Name)
