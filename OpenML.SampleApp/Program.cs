@@ -12,7 +12,9 @@ namespace OpenML.SampleApp
     {
         static void Main(string[] args)
         {
-            var connector = new OpenMlConnector("");
+            var connector = new OpenMlConnector("57e587337295cc384add1de665563e29");
+            var dataSetDetail = connector.GetDatasetDescription(1);
+            dataSetDetail.DownloadDataset("test2.arff");
             var uploadedTask = connector.UploadTask(new UploadTaskDescription(1, new List<InputDescription>
             {
                 new InputDescription("estimation_procedure", "7"),
@@ -26,9 +28,6 @@ namespace OpenML.SampleApp
             var untagged = connector.UntagDataSet(uploaded.Id, "testtag");
             var deletedDataset = connector.DeleteDataset(uploaded.Id);
             var flowsOwnedByMe = connector.FlowOwnedByMe();
-
-            var dataSetDetail = connector.GetDatasetDescription(1);
-            dataSetDetail.DownloadDataset("test.arff");
         }
     }
 }

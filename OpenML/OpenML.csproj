@@ -129,6 +129,7 @@
     <Compile Include="Response\Tasks\TagTask.cs" />
     <Compile Include="Response\Tasks\UploadTask.cs" />
     <Compile Include="Response\Tasks\UploadTaskDescription.cs" />
+    <Compile Include="Utilities\Md5Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

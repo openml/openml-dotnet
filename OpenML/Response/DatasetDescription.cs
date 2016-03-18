@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Security.Cryptography;
+using OpenML.Utilities;
 
 namespace OpenML.Response
 {
@@ -30,7 +30,7 @@ namespace OpenML.Response
         /// Description of the dataset, given by the user who uploaded it.
         /// </summary>
         public string Description { get; set; }
-        
+
         /// <summary>
         /// Format of the dataset (e.g. arff)
         /// </summary>
@@ -44,7 +44,7 @@ namespace OpenML.Response
         /// <summary>
         ///People who contributed to the current version of the datadat (e.g. reformatting) 
         /// </summary>
-        public List<string> Contributors { get; set; } 
+        public List<string> Contributors { get; set; }
 
         /// <summary>
         /// Language in which the data is represented. Starts with 1 upper case letter, rest lower case, e.g. 'English' 
@@ -128,25 +128,23 @@ namespace OpenML.Response
         /// </summary>
         public string UpdateComment { get; set; }
 
+        /// <summary>
+        /// Download dataset from its URL and verifies the MD5 hash. If the file is corrupted it is deleted
+        /// and an exception is raised.
+        /// </summary>
+        /// <param name="destination"></param>
         public void DownloadDataset(string destination)
         {
             using (var webClient = new WebClient())
             {
                 webClient.DownloadFile(Url, destination);
             }
-            using (var md5 = MD5.Create())
+            if (!Md5Utils.HasFileCorrectHash(destination, Md5CheckSum))
             {
-                using (var stream = File.OpenRead(destination))
-                {
-                    var actualHash = BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
-                    if (actualHash != Md5CheckSum)
-                    {
-                        File.Delete(destination);
-                        throw new Exception("Md5 hash did not match. Source Corrupted?");
-                    }
-                }
+                File.Delete(destination);
+                throw new Exception("Md5 hash did not match. Source Corrupted?");
             }
-
         }
     }
 }
+    
