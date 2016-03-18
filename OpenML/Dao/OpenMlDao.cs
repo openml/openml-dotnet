@@ -7,19 +7,19 @@ using RestSharp;
 namespace OpenML.Dao
 {
     public class OpenMlDao
-    {        
-        private string _urlEndpoint = "http://www.openml.org/api_new/v1/";
-        private string _freeApiEndpoint = "http://www.openml.org/api_query/";
-        private RestClient _client;
+    {   
+        public string OpenMlHost { get; }
 
-        public OpenMlDao()
-        {
-            _client = new RestClient(_urlEndpoint) {Timeout = int.MaxValue};
-        }
+        private string UrlEndpoint => OpenMlHost + "api_new/v1/";
+
+        private string FreeApiEndpoint => OpenMlHost + "api_query/";
+
+        private readonly RestClient _client;
 
         public OpenMlDao(string endpointUrl)
         {
-            _client = new RestClient(endpointUrl) {Timeout = int.MaxValue};
+            OpenMlHost = endpointUrl;
+            _client = new RestClient(UrlEndpoint) {Timeout = int.MaxValue};
         }
 
         public T ExecuteRequest<T>(string url, List<Parameter> parameters = null, Method method = Method.GET, List<FileParameter> files = null) where T : class, new()
@@ -57,7 +57,7 @@ namespace OpenML.Dao
 
         public FreeQueryResult ExecuteFreeQuery(string freeQuery)
         {
-            var freeQueryClient = new RestClient(_freeApiEndpoint);
+            var freeQueryClient = new RestClient(FreeApiEndpoint);
             var request = new RestRequest("?q="+freeQuery, Method.POST);
             var response = freeQueryClient.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)

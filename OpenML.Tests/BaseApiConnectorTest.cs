@@ -10,7 +10,7 @@ namespace OpenML.Tests
         public BaseApiConnectorTest()
         {
             //ReadOnlyKey for dotnet test account
-            Connector = new OpenMlConnector("57e587337295cc384add1de665563e29");
+            Connector = new OpenMlConnector("57e587337295cc384add1de665563e29", "http://test.openml.org/");
         }
     }
 }

@@ -26,9 +26,10 @@ namespace OpenML
         /// Creates OpenMlConnector instance and automatically connect
         /// </summary>
         /// <param name="apiKey">OpenMl apiKey (You can obtain it on the website in your profile section)</param>
-        public OpenMlConnector(string apiKey)
+        /// <param name="openMlHost">OpenMl URL. Defaults to http://www.openml.org/ </param>
+        public OpenMlConnector(string apiKey, string openMlHost= "http://www.openml.org/")
         {
-            _dao = new OpenMlDao();
+            _dao = new OpenMlDao(openMlHost);
             ApiKey = apiKey;
         }
 
