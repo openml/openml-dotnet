@@ -37,8 +37,10 @@ namespace OpenML.Tests
         [TestMethod]
         public void TestGetRunsByFlowIds()
         {
-            var evaluations = Connector.GetRunsByFlowIds(new List<int> { 1 });
+            var flowId = 1;
+            var evaluations = Connector.GetRunsByFlowIds(new List<int> { flowId });
             Assert.IsTrue(evaluations.Count > 0);
+            Assert.IsTrue(evaluations.TrueForAll(x=>x.FlowId==flowId));
         }
 
         [TestMethod]
