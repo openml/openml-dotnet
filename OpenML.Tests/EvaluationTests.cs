@@ -35,16 +35,16 @@ namespace OpenML.Tests
         }
 
         [TestMethod]
-        public void TestGetRunsByFlowIds()
+        public void TestGetEvaluationsByFlowIds()
         {
             var flowId = 1;
-            var evaluations = Connector.GetRunsByFlowIds(new List<int> { flowId });
+            var evaluations = Connector.GetEvaluationsByFlowIds(new List<int> { flowId });
             Assert.IsTrue(evaluations.Count > 0);
             Assert.IsTrue(evaluations.TrueForAll(x=>x.FlowId==flowId));
         }
 
         [TestMethod]
-        public void TestGetRunsWithFilter()
+        public void TestGetEvaluationsWithFilter()
         {
             var runs = Connector.GetEvaluationsWithFilter(
              new List<int> { 1 }, new List<int> { 68 }, new List<int> { 1 }, new List<int> { 61 }, null);

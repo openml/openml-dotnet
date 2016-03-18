@@ -33,5 +33,16 @@ namespace OpenML.Tests
             Assert.IsTrue(task.Inputs.Count > 0);
             Assert.IsTrue(task.Tags.Count > 0);
         }
+
+        [TestMethod]
+        public void TestListTasksOfTag()
+        {
+            var tag = "basic";
+            var tasks = Connector.ListTasksOfTag(tag);
+            var task = tasks.First();
+            Assert.IsTrue(task.Inputs.Count > 0);
+            Assert.IsTrue(task.Tags.Count > 0);
+            Assert.IsTrue(tasks.TrueForAll(x=>x.Tags.Any(t=>t.Name==tag)));
+        }
     }
 }

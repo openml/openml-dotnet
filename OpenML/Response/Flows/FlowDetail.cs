@@ -15,5 +15,6 @@ namespace OpenML.Response.Flows
         public string Language { get; set; }
         public string Dependencies { get; set; }
         public List<Parameter> Parameters { get; set; }
+        public string Tag { get; set; }
     }
 }

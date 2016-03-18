@@ -31,13 +31,22 @@ namespace OpenML.Tests
         [TestMethod]
         public void TestGetFlowDescription()
         {
-            var flowDetail = Connector.GetFlowDescription(61);
+            var flowDetail = Connector.GetFlowDescription(56);
             Assert.IsTrue(!string.IsNullOrEmpty(flowDetail.Name)
                 && !string.IsNullOrEmpty(flowDetail.Description)
                 && !string.IsNullOrEmpty(flowDetail.Language)
                 && !string.IsNullOrEmpty(flowDetail.ExternalVersion)
                 && flowDetail.Parameters.Count>0
                 );
+            Assert.IsTrue(!string.IsNullOrEmpty(flowDetail.Tag));
+        }
+
+        [TestMethod]
+        public void TestListFlowsWithTag()
+        {
+            var flows = Connector.ListFlowsWithTag("study_7");
+            Assert.IsTrue(flows.Count>0);
+            Assert.IsTrue(!string.IsNullOrEmpty(flows[0].Name));
         }
     }
 }

@@ -283,7 +283,7 @@ namespace OpenML
         {
             var parameters = new Parameters();
             parameters.AddUrlSegment("tag", tag);
-            return _dao.ExecuteAuthenticatedRequest<List<Flow>>("/run/list/tag/{tag}", ApiKey, parameters);
+            return _dao.ExecuteAuthenticatedRequest<List<Flow>>("/flow/list/tag/{tag}", ApiKey, parameters);
         }
 
         public List<int> FlowOwnedByMe()
