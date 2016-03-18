@@ -1,5 +1,7 @@
 # .NET API connector for the OpenMl platform
 
+![Build Status](https://jaksmid.visualstudio.com/DefaultCollection/_apis/public/build/definitions/591c915f-37c1-435a-a31d-0ea36e471364/1/badge)
+
 Connector to the OpenMl API for the .Net platform. Provides an easy and convinient way for accessing the OpenMl functionality. </br>
 It now covers all functionality of the rest API.
 
