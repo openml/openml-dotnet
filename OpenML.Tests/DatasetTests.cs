@@ -26,5 +26,19 @@ namespace OpenML.Tests
                                                     && !string.IsNullOrEmpty(dataSetDetail.Status)
                                                     && dataSetDetail.Qualities.Count > 0));
         }
+
+        [TestMethod]
+        public void TestGetDataFeatures()
+        {
+            var dataFeatures = Connector.GetDataFeatures(1);
+            Assert.IsTrue(dataFeatures.Count>0);
+        }
+
+        [TestMethod]
+        public void TestListDataQualities()
+        {
+            var dataQualities = Connector.ListDataQualities();
+            Assert.IsTrue(dataQualities.Count > 0);
+        }
     }
 }

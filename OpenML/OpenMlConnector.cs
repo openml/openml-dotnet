@@ -536,21 +536,10 @@ namespace OpenML
         /// List all evaluation measures used in OpenMl
         /// </summary>
         /// <returns>List of evaluation measures</returns>
-        public EvaluationMeasures ListEvaluationMeasures()
+        public List<Measure> ListEvaluationMeasures()
         {
-            return _dao.ExecuteAuthenticatedRequest<EvaluationMeasures>("evaluationmeasure/list", ApiKey);
-        }
-
-        /// <summary>
-        /// Get estimation procedure by id
-        /// </summary>
-        /// <param name="estimationprocedureId">Id of the estimation procedure</param>
-        /// <returns>Estimation procedure with specified Id</returns>
-        public EstimationProcedure GetEstimationProcedure(int estimationprocedureId)
-        {
-            var parameters = new Parameters();
-            parameters.AddUrlSegment("proc_id", estimationprocedureId);
-            return _dao.ExecuteAuthenticatedRequest<EstimationProcedure>("estimationprocedure/{proc_id}", ApiKey, parameters);
+            var result = _dao.ExecuteAuthenticatedRequest<EvaluationMeasures>("evaluationmeasure/list", ApiKey);
+            return result?.Measures;
         }
 
         public List<EstimationProcedure> ListEstimationProcedures()

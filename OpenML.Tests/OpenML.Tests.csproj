@@ -54,6 +54,8 @@
     <Compile Include="EvaluationTests.cs" />
     <Compile Include="DatasetTests.cs" />
     <Compile Include="RunTests.cs" />
+    <Compile Include="MiscApiTests.cs" />
+    <Compile Include="TaskTests.cs" />
     <Compile Include="TaskTypeTests.cs" />
     <Compile Include="FlowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

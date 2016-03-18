@@ -10,9 +10,9 @@ namespace OpenML.Response
         public string Name { get; set; }
         public string Status { get; set; }
         public string Format { get; set; }
-        public List<Tag> Tags { get; set; } 
-        public List<Quality> Qualities { get; set; } 
-        public List<Input> Inputs { get; set; } 
+        public List<Tag> Tags { get; set; }
+        public List<Quality> Qualities { get; set; }
+        public List<Input> Inputs { get; set; }
     }
 
     public class Input
