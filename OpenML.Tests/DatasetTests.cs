@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace OpenML.Tests
@@ -59,6 +61,43 @@ namespace OpenML.Tests
             Assert.IsTrue(datasets.Any(dataSetDetail => !string.IsNullOrEmpty(dataSetDetail.Name)
                                                     && !string.IsNullOrEmpty(dataSetDetail.Status)
                                                     && dataSetDetail.Qualities.Count > 0));
+        }
+
+        [TestMethod]
+        public void TestDownloadDataset_Ok()
+        {
+            string destination = "test.arff";
+            try
+            {
+                var dataSetDetail = Connector.GetDatasetDescription(1);
+                dataSetDetail.DownloadDataset(destination);
+                Assert.IsTrue(File.Exists(destination));
+            }
+            finally 
+            {
+                File.Delete(destination);
+            }
+        }
+
+        [TestMethod]
+        public void TestDownloadDataset_Ko()
+        {
+            string destination = "test.arff";
+            try
+            {
+                var dataSetDetail = Connector.GetDatasetDescription(1);
+                dataSetDetail.Md5CheckSum = "falseMd5";
+                dataSetDetail.DownloadDataset(destination);
+                Assert.Fail("Should raised an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual("Md5 hash did not match. Source Corrupted?", e.Message);
+            }
+            finally
+            {
+                File.Delete(destination);
+            }
         }
     }
 }
