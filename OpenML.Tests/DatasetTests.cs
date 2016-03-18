@@ -40,5 +40,14 @@ namespace OpenML.Tests
             var dataQualities = Connector.ListDataQualities();
             Assert.IsTrue(dataQualities.Count > 0);
         }
+
+        [TestMethod]
+        public void TestListDatasetsWithTag()
+        {
+            var datasets = Connector.ListDatasetsWithTag("test");
+            Assert.IsTrue(datasets.Any(dataSetDetail => !string.IsNullOrEmpty(dataSetDetail.Name)
+                                                    && !string.IsNullOrEmpty(dataSetDetail.Status)
+                                                    && dataSetDetail.Qualities.Count > 0));
+        }
     }
 }

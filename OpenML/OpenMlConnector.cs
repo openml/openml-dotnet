@@ -61,7 +61,7 @@ namespace OpenML
         {
             var parameters = new Parameters();
             parameters.AddUrlSegment("tag", tag);
-            return _dao.ExecuteAuthenticatedRequest<Data>("/data/list/tag/{tag}", ApiKey).Datasets;
+            return _dao.ExecuteAuthenticatedRequest<Data>("/data/list/tag/{tag}", ApiKey, parameters).Datasets;
         }
 
         /// <summary>
